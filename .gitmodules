@@ -4,3 +4,6 @@
 [submodule "lib/ion-protocol"]
 	path = lib/ion-protocol
 	url = https://github.com/Ion-Protocol/ion-protocol
+[submodule "lib/v3-core"]
+	path = lib/v3-core
+	url = https://github.com/Uniswap/v3-core
