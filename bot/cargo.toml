@@ -1,0 +1,42 @@
+[package]
+name = "ion_liquidator"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anvil = { git = "https://github.com/foundry-rs/foundry.git", rev = "677e81028e971e7564e882e924875d78a0d07c8d" } 
+artemis-core = { git = "https://github.com/paradigmxyz/artemis.git" }
+bindings = { path = "./bindings" }
+dotenv = "0.15.0"
+futures = "0.3.5"
+anyhow = "1.0.70"
+tokio = { version = "1.29.0", features = ["full"] }
+tokio-stream = { version = "0.1", features = ['sync'] }
+ethers-core = "2.0"
+ethers-providers = "2.0"
+ethers-contract = "2.0"
+ethers = { version = "2.0", features = ["abigen", "ws"]}
+eth-encode-packed = "0.1.0"
+colored = "2.0.0"
+log = "0.4.17"
+fern = { version = "0.6.2", features = ["colored"] }
+foundry-evm = { git = "https://github.com/foundry-rs/foundry.git", rev = "677e81028e971e7564e882e924875d78a0d07c8d" }
+chrono = "0.4.23"
+revm = { version = "3.5.0", features = ["optional_block_gas_limit", "optional_no_base_fee", "ethersdb", "std"] }
+alloy-primitives = { version = "0.5.2" }
+async-trait = "0.1.74"
+
+[patch.crates-io]
+ethers = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }
+ethers-core = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }
+ethers-contract = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }
+ethers-contract-abigen = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }
+ethers-providers = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }
+ethers-signers = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }
+ethers-middleware = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }
+ethers-solc = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }
+
+revm = { git = "https://github.com/bluealloy/revm", branch = "reth_freeze" }
+revm-interpreter = { git = "https://github.com/bluealloy/revm", branch = "reth_freeze" }
+revm-precompile = { git = "https://github.com/bluealloy/revm", branch = "reth_freeze" }
+revm-primitives = { git = "https://github.com/bluealloy/revm", branch = "reth_freeze" }

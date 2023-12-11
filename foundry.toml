@@ -1,6 +1,24 @@
 [profile.default]
 src = "src"
+test = "test"
 out = "out"
 libs = ["lib"]
+remappings = ["@ionprotocol/=lib/ion-protocol/",
+"@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/", 
+                "@balancer-labs/v2-interfaces/=lib/balancer-v2-monorepo/pkg/interfaces/",
+                "@balancer-labs/v2-pool-stable/=lib/balancer-v2-monorepo/pkg/pool-stable/",
+                "@uniswap/v3-core/=lib/v3-core/",]
+optimizer = false
+fs_permissions = [{ access = "read-write", path = "./"}]
+
+[fmt]
+bracket_spacing = true
+int_types = "long"
+line_length = 120
+multiline_func_header = "all"
+number_underscore = "thousands"
+quote_style = "double"
+tab_width = 4
+wrap_comments = true
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
