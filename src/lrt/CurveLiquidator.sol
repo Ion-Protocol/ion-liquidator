@@ -4,7 +4,7 @@ pragma solidity 0.8.21;
 import { IonPool } from "@ionprotocol/src/IonPool.sol";
 import { Liquidation } from "@ionprotocol/src/Liquidation.sol";
 import { IWETH9 } from "@ionprotocol/src/interfaces/IWETH9.sol";
-import { ICurvePool } from "./interfaces/ICurvePool.sol";
+import { ICurvePool } from "../interfaces/ICurvePool.sol";
 
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 

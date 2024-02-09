@@ -10,6 +10,7 @@ remappings = ["@ionprotocol/=lib/ion-protocol/",
                 "@uniswap/v3-core/=lib/v3-core/",]
 optimizer = false
 fs_permissions = [{ access = "read-write", path = "./"}]
+evm_version = "shanghai"
 
 [fmt]
 bracket_spacing = true

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import { LiquidatorForkSharedSetup } from "../../helpers/LiquidatorForkSharedSetup.sol";
+import { LiquidatorForkSharedSetup } from "../../helpers/lrt/LiquidatorForkSharedSetup.sol";
 
 import { LiquidationTypeArgs } from "../../../src/helpers/LiquidationHelpers.sol";
 import { ICurvePool } from "../../../src/interfaces/ICurvePool.sol";
@@ -26,11 +26,11 @@ contract WstEthCurveLiquidatorTest is LiquidatorForkSharedSetup {
             collateralAmount: collateralAmount,
             normalizedDebt: normalizedBorrowAmount,
             rate: ionPool.rate(ilkIndex),
-            maxDiscount: liquidation.MAX_DISCOUNT_0(),
+            maxDiscount: liquidation.MAX_DISCOUNT(),
             baseDiscount: liquidation.BASE_DISCOUNT(),
             targetHealth: liquidation.TARGET_HEALTH(),
             dust: ionPool.dust(ilkIndex),
-            liquidationThreshold: liquidation.LIQUIDATION_THRESHOLD_0(),
+            liquidationThreshold: liquidation.LIQUIDATION_THRESHOLD(),
             negativeB: 0,
             bSquared: 0,
             fourAc: 0,

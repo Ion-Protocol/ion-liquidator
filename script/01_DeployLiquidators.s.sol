@@ -9,9 +9,9 @@ import { Liquidation } from "@ionprotocol/src/Liquidation.sol";
 import { IWETH9 } from "@ionprotocol/src/interfaces/IWETH9.sol";
 import { IWstEth } from "@ionprotocol/src/interfaces/ProviderInterfaces.sol";
 
-import { WstEthCurveLiquidator } from "../src/WstEthCurveLiquidator.sol";
-import { CurveLiquidator } from "../src/CurveLiquidator.sol";
-import { UniswapV3Liquidator } from "../src/UniswapV3Liquidator.sol";
+import { WstEthCurveLiquidator } from "../src/lrt/WstEthCurveLiquidator.sol";
+import { CurveLiquidator } from "../src/lrt/CurveLiquidator.sol";
+import { UniswapV3Liquidator } from "../src/lrt/UniswapV3Liquidator.sol";
 
 import { stdJson as StdJson } from "forge-std/StdJson.sol";
 

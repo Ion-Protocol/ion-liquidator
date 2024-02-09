@@ -54,7 +54,7 @@ contract LiquidationHelpers {
     }
 
     /**
-     * 
+     *
      * @param collateralAmount The amount of collateral in the vault. [WAD]
      * @param normalizedDebt The amount of normalized debt in the vault. [WAD]
      * @param rate The current rate of the collateral. [RAY]

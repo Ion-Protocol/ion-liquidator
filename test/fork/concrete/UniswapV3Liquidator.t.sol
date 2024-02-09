@@ -1,12 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import { UniswapV3Liquidator } from "../../../src/UniswapV3Liquidator.sol";
-import { LiquidatorForkSharedSetup } from "../../helpers/LiquidatorForkSharedSetup.sol";
+import { LiquidatorForkSharedSetup } from "../../helpers/lrt/LiquidatorForkSharedSetup.sol";
 
 import { MockReserveOracle } from "@ionprotocol/test/helpers/IonPoolSharedSetup.sol";
-
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract UniswapV3LiquidatorTest is LiquidatorForkSharedSetup {
     function test_liquidate() external {

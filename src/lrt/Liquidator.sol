@@ -32,12 +32,12 @@ abstract contract Liquidator is IFlashLoanRecipient {
     }
 
     /**
-     * @dev Function selector is 0x00000000. It is possible for a liquidation tx
-     * to be frontrun by a user repaying debt or depositing more collateral. If
-     * the vault is no longer liquidatable, then the liquidation will fail at
-     * the `Liquidation` contract layer. If the vault is safer but still
-     * liquidatable, then the tx will only succeed if the transaction is
-     * profitable (not accounting for gas).
+     * @dev It is possible for a liquidation tx to be frontrun by a user
+     * repaying debt or depositing more collateral. If the vault is no longer
+     * liquidatable, then the liquidation will fail at the `Liquidation`
+     * contract layer. If the vault is safer but still liquidatable, then the tx
+     * will only succeed if the transaction is profitable (not accounting for
+     * gas).
      * @param ilkIndex of the vault to be liquidated
      * @param user owner of the vault.
      * @param collateralToken `collateralReward` amount to be received

@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import { LiquidationHelpers, LiquidationTypeArgs } from "../../../src/helpers/LiquidationHelpers.sol";
 
 import { LiquidationHelpersSharedSetup } from "../../helpers/LiquidationHelpersSharedSetup.sol";
 
 import { WadRayMath } from "@ionprotocol/src/libraries/math/WadRayMath.sol";
+
+import { safeconsole as console } from "forge-std/safeconsole.sol";
 
 contract LiqudationHelpers_FuzzTest is LiquidationHelpersSharedSetup {
     using WadRayMath for uint256;
@@ -44,9 +45,13 @@ contract LiqudationHelpers_FuzzTest is LiquidationHelpersSharedSetup {
     }
 
     function test_GetLiquidationTypeBounds1() public {
-        $.normalizedDebt = 300_140_319_009_334_513;
-        $.collateralAmount = 497_668_533_102_280_745;
-        $.rate = 1_000_000_000_000_000_000_000_000_000;
+        $.maxDiscount = 0.2e27;
+        $.targetHealth = 1.25e27;
+        $.dust = 0;
+        $.liquidationThreshold = 0.92e27;
+        $.normalizedDebt = 2_312_575_154_794_509_358;
+        $.collateralAmount = 3_000_000_000_000_000_000;
+        $.rate = 1_000_000_057_141_349_455_516_898_485;
         $.baseDiscount = 0;
         $.dust = 0;
 
@@ -54,5 +59,9 @@ contract LiqudationHelpers_FuzzTest is LiquidationHelpersSharedSetup {
             liquidationHelpers.getLiquidationTypeBounds($);
 
         _checkValidBounds(partialLiquidationBound, fullLiquidationBound, protocolLiquidationBound);
+
+        console.log("partialLiquidationBound", partialLiquidationBound);
+        console.log("fullLiquidationBound", fullLiquidationBound);
+        console.log("protocolLiquidationBound", protocolLiquidationBound);
     }
 }

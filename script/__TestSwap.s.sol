@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-
 import { BaseScript } from "@ionprotocol/script/Base.s.sol";
 
 import { ICurvePool } from "../src/interfaces/ICurvePool.sol";
