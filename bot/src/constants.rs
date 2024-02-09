@@ -32,9 +32,9 @@ pub static WETH9: Lazy<Address> =
 
 // TODO:
 pub static ION_POOL_ADDRESS: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x484242986F57dFcA98EeC2C78427931C63F1C4ce").unwrap());
+    Lazy::new(|| Address::from_str("0x00000000005a1De4c0eb34609e211AD8831707E0").unwrap());
 pub static LIQUIDATION_ADDRESS: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x4aAAf621a58473779099e210c606019aD3EAe536").unwrap());
+    Lazy::new(|| Address::from_str("0x00000000002Ddfa58A917ee47c5BbB909A2227C4").unwrap());
 pub static ION_TREASURY: Lazy<Address> =
     Lazy::new(|| Address::from_str("0x0000000000000000000000000000000000000001").unwrap());
 
@@ -74,49 +74,20 @@ pub static EVENTS: &[&str] = &[
 ];
 
 // Collateral addresses
-pub static WST_ETH_ADDRESS: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0").unwrap());
-pub static ETHX_ADDRESS: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0xA35b1B31Ce002FBF2058D22F30f95D405200A15b").unwrap());
-pub static SW_ETH_ADDRESS: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0xf951E335afb289353dc249e82926178EaC7DEd78").unwrap());
+pub static WEETH_ADDRESS: Lazy<Address> =
+    Lazy::new(|| Address::from_str("0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee").unwrap());
 
-pub static WST_ETH_GEM_JOIN: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x4278C5d322aB92F1D876Dd7Bd9b44d1748b88af2").unwrap());
-pub static ETHX_GEM_JOIN: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x0D92d35D311E54aB8EEA0394d7E773Fc5144491a").unwrap());
-pub static SW_ETH_GEM_JOIN: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x24EcC5E6EaA700368B8FAC259d3fBD045f695A08").unwrap());
+pub static WEETH_GEM_JOIN: Lazy<Address> =
+    Lazy::new(|| Address::from_str("0x1f0CEf277C05CBd9f96dd91e6a9D9C2422b00E55").unwrap());
 
 // Liquidator addresses
-pub static WST_ETH_CURVE_LIQUIDATOR: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x40d32E9Eff27B70f67C10133F64ea406207b1c22").unwrap());
-pub static CURVE_LIQUIDATOR: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0xeBB5613d3795F753aA2ac122e65E45B8aF0a5517").unwrap());
-pub static UNISWAP_LIQUIDATOR: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0xD4fF44cBCbE1C26aD56A2638cFB84e5CdF7397bC").unwrap());
+pub static WEETH_CURVE_LIQUIDATOR: Lazy<Address> =
+    Lazy::new(|| Address::from_str("0x14AB8eC88894568fad716D9cd81bb4BdAF343fE0").unwrap());
+pub static WEETH_UNISWAP_LIQUIDATOR: Lazy<Address> =
+    Lazy::new(|| Address::from_str("0x58FE37a48c2EFc2e66e7C8AaC8e91789835F8282").unwrap());
 
 // DEX pools
-pub static ST_ETH_CURVE_POOL: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0xdc24316b9ae028f1497c275eb9192a3ea0f67022").unwrap());
-pub static WST_ETH_UNISWAP_POOL: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x109830a1AAaD605BbF02a9dFA7B0B92EC2FB7dAa").unwrap());
-pub static WST_ETH_BALANCER_POOL: Lazy<H256> = Lazy::new(|| {
-    H256::from_str("0x93d199263632a4ef4bb438f1feb99e57b4b5f0bd0000000000000000000005c2").unwrap()
-});
-
-pub static ETHX_CURVE_POOL: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x59ab5a5b5d617e478a2479b0cad80da7e2831492").unwrap());
-pub static ETHX_UNISWAP_POOL: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x1b9669b12959Ad51B01FaBcF01EaBDFADB82f578").unwrap());
-pub static ETHX_BALANCER_POOL: Lazy<H256> = Lazy::new(|| {
-    H256::from_str("0x37b18b10ce5635a84834b26095a0ae5639dcb7520000000000000000000005cb").unwrap()
-});
-
-pub static SW_ETH_500_UNISWAP_POOL: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x30ea22c879628514f1494d4bbfef79d21a6b49a2").unwrap());
-pub static SW_ETH_3000_UNISWAP_POOL: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x30ea22c879628514f1494d4bbfef79d21a6b49a2").unwrap());
-pub static SW_ETH_BALANCER_POOL: Lazy<H256> = Lazy::new(|| {
-    H256::from_str("0xe7e2c68d3b13d905bbb636709cf4dfd21076b9d20000000000000000000005ca").unwrap()
-});
+pub static WEETH_WETH_UNISWAP_POOL: Lazy<Address> =
+    Lazy::new(|| Address::from_str("0x7A415B19932c0105c82FDB6b720bb01B0CC2CAe3").unwrap());
+pub static WEETH_WETH_CURVE_POOL: Lazy<Address> =
+    Lazy::new(|| Address::from_str("0x13947303F63b363876868D070F14dc865C36463b").unwrap());

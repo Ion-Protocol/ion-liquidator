@@ -14,8 +14,8 @@ use ethers_core::types::Log;
 use ion_liquidator::{
     collectors::block_collector::{BlockCollector, NewBlock},
     constants::{
-        Env, BORROW_EVENT_HASH, DEPOSIT_COLLATERAL_EVENT_HASH, EVENTS, ION_POOL_ADDRESS,
-        REPAY_EVENT_HASH, WITHDRAW_COLLATERAL_EVENT_HASH, CONFISCATE_VAULT_EVENT_HASH,
+        Env, BORROW_EVENT_HASH, CONFISCATE_VAULT_EVENT_HASH, DEPOSIT_COLLATERAL_EVENT_HASH, EVENTS,
+        ION_POOL_ADDRESS, REPAY_EVENT_HASH, WITHDRAW_COLLATERAL_EVENT_HASH,
     },
     executors::mempool_executor::MempoolExecutor,
     strategy::IonLiquidatorStrategy,

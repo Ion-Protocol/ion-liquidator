@@ -8,14 +8,14 @@ import { IonPool } from "@ionprotocol/src/IonPool.sol";
 import { Liquidation } from "@ionprotocol/src/Liquidation.sol";
 import { IWETH9 } from "@ionprotocol/src/interfaces/IWETH9.sol";
 import { IWstEth } from "@ionprotocol/src/interfaces/ProviderInterfaces.sol";
+import { CREATEX } from "@ionprotocol/src/Constants.sol";
 
-import { WstEthCurveLiquidator } from "../src/lrt/WstEthCurveLiquidator.sol";
-import { CurveLiquidator } from "../src/lrt/CurveLiquidator.sol";
-import { UniswapV3Liquidator } from "../src/lrt/UniswapV3Liquidator.sol";
+import { WeEthCurveLiquidator } from "../src/WeEthCurveLiquidator.sol";
+import { WeEthUniswapLiquidator } from "../src/WeEthUniswapLiquidator.sol";
 
 import { stdJson as StdJson } from "forge-std/StdJson.sol";
 
-contract DeployInitialGemJoinsScript is BaseScript {
+contract DeployLiquidatorsScript is BaseScript {
     using StdJson for string;
 
     string configPath = "./deployment-config/01_DeployLiquidators.json";
@@ -25,23 +25,25 @@ contract DeployInitialGemJoinsScript is BaseScript {
         public
         broadcast
         returns (
-            WstEthCurveLiquidator wstEthCurveLiquidator,
-            CurveLiquidator curveLiquidator,
-            UniswapV3Liquidator uniswapV3Liquidator
+            WeEthCurveLiquidator weEthCurveLiquidator,
+            WeEthUniswapLiquidator weEthUniswapLiquidator
         )
     {
-        IonPool ionPool = IonPool(config.readAddress(".ionPool"));
         Liquidation liquidation = Liquidation(config.readAddress(".liquidation"));
-        IWETH9 weth = IWETH9(config.readAddress(".weth"));
-        IWstEth wstEth = IWstEth(config.readAddress(".wstEth"));
-        IERC20 stEth = IERC20(config.readAddress(".stEth"));
         address treasury = config.readAddress(".treasury");
+        bytes32 salt1 = config.readBytes32(".salt1");
+        bytes32 salt2 = config.readBytes32(".salt2");
 
-        wstEthCurveLiquidator = new WstEthCurveLiquidator{ salt: bytes32(abi.encode(0)) }(
-            ionPool, liquidation, weth, wstEth, stEth, treasury
+        bytes memory curveLiquidatorInitCode = type(WeEthCurveLiquidator).creationCode;
+
+        weEthCurveLiquidator = WeEthCurveLiquidator(
+            CREATEX.deployCreate3(salt1, abi.encodePacked(curveLiquidatorInitCode, abi.encode(liquidation, treasury)))
         );
-        curveLiquidator = new CurveLiquidator{ salt: bytes32(abi.encode(0)) }(ionPool, liquidation, weth, treasury);
-        uniswapV3Liquidator =
-            new UniswapV3Liquidator{ salt: bytes32(abi.encode(0)) }(ionPool, liquidation, weth, treasury);
+
+        bytes memory uniswapLiquidatorInitCode = type(WeEthUniswapLiquidator).creationCode;
+
+        weEthUniswapLiquidator = WeEthUniswapLiquidator(
+            CREATEX.deployCreate3(salt2, abi.encodePacked(uniswapLiquidatorInitCode, abi.encode(liquidation, treasury)))
+        );
     }
 }

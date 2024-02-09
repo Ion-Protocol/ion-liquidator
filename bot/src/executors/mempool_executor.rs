@@ -5,6 +5,7 @@ use ethers::{
     providers::Middleware,
     types::{transaction::eip2718::TypedTransaction, U256},
 };
+use log::info;
 use std::sync::Arc;
 
 /// An executor that sends transactions to the mempool.
@@ -36,6 +37,8 @@ where
             Some(gas_price) => action.tx.set_gas_price(gas_price),
             None => &mut action.tx,
         };
+
+        info!("Sending transaction to mempool: {:?}", action.tx);
 
         self.client.send_transaction(action.tx, None).await?;
         Ok(())

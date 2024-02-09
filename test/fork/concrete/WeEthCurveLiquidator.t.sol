@@ -4,11 +4,13 @@ pragma solidity 0.8.21;
 import { LiquidatorForkSharedSetup } from "../../helpers/weeth/LiquidatorForkSharedSetup.sol";
 
 import { LiquidationTypeArgs } from "../../../src/helpers/LiquidationHelpers.sol";
+import { WeEthCurveLiquidator } from "../../../src/WeEthCurveLiquidator.sol";
 
 import { MockReserveOracle } from "@ionprotocol/test/helpers/IonPoolSharedSetup.sol";
 import { WSTETH_ADDRESS, WETH_ADDRESS, WEETH_ADDRESS } from "@ionprotocol/src/Constants.sol";
 import { EtherFiLibrary } from "@ionprotocol/src/libraries/EtherFiLibrary.sol";
 import { IWeEth } from "@ionprotocol/src/interfaces/ProviderInterfaces.sol";
+import { GemJoin } from "@ionprotocol/src/join/GemJoin.sol";
 
 import { ISwapRouter } from "@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol";
 import { ICurvePool } from "../../../src/interfaces/ICurvePool.sol";

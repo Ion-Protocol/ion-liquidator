@@ -1,6 +1,11 @@
-use crate::constants::{ION_TREASURY, TRANSFER_EVENT_HASH};
+use crate::constants::{
+    ION_TREASURY, TRANSFER_EVENT_HASH, WEETH_ADDRESS, WEETH_CURVE_LIQUIDATOR, WEETH_GEM_JOIN,
+    WEETH_UNISWAP_LIQUIDATOR, WEETH_WETH_CURVE_POOL, WEETH_WETH_UNISWAP_POOL,
+};
 use crate::executors::mempool_executor::SubmitTxToMempool;
 use alloy_primitives::{Address, Bytes as aBytes, B256};
+use anvil::eth::backend::info;
+#[allow(unused_imports)]
 use anvil::eth::backend::mem::inspector::Inspector;
 use anyhow::Result;
 use artemis_core::types::Strategy;
@@ -16,8 +21,8 @@ use bindings::{
 use ethers_core::{
     abi::{
         decode, encode, Bytes,
-        ParamType::{Array, Tuple, Uint},
-        Token,
+        ParamType::{Tuple, Uint},
+        Token::{Address as TAddress, Bool as TBool, Tuple as TTuple, Uint as TUint},
     },
     types::{
         Eip1559TransactionRequest, Filter, Log, NameOrAddress, Sign, TransactionRequest, H160, U256,
@@ -40,12 +45,8 @@ use async_trait::async_trait;
 
 use crate::{
     constants::{
-        BORROW_EVENT_HASH, CONFISCATE_VAULT_EVENT_HASH, CURVE_LIQUIDATOR,
-        DEPOSIT_COLLATERAL_EVENT_HASH, ETHX_ADDRESS, ETHX_CURVE_POOL, ETHX_GEM_JOIN,
-        ETHX_UNISWAP_POOL, EVENTS, ION_POOL_ADDRESS, LIQUIDATION_ADDRESS, REPAY_EVENT_HASH,
-        ST_ETH_CURVE_POOL, SW_ETH_3000_UNISWAP_POOL, SW_ETH_500_UNISWAP_POOL, SW_ETH_ADDRESS,
-        SW_ETH_GEM_JOIN, UNISWAP_LIQUIDATOR, WITHDRAW_COLLATERAL_EVENT_HASH, WST_ETH_ADDRESS,
-        WST_ETH_CURVE_LIQUIDATOR, WST_ETH_GEM_JOIN, WST_ETH_UNISWAP_POOL,
+        BORROW_EVENT_HASH, CONFISCATE_VAULT_EVENT_HASH, DEPOSIT_COLLATERAL_EVENT_HASH, EVENTS,
+        ION_POOL_ADDRESS, LIQUIDATION_ADDRESS, REPAY_EVENT_HASH, WITHDRAW_COLLATERAL_EVENT_HASH,
     },
     helpers::{
         foundry_evm_helpers::setup_foundry_evm,
@@ -61,18 +62,17 @@ pub struct IonLiquidatorStrategy<M> {
     vaults: HashMap<VaultKey, VaultInfo>,
     revm: EVM<InMemoryDB>,
 
-    collaterals: Box<[H160]>,
-    gem_joins: Box<[H160]>,
+    collateral: H160,
+    gem_join: H160,
 
-    dex_pools: Vec<Vec<PoolInfo>>,
+    dex_pools: Vec<PoolInfo>,
 
     liquidation_helper_addr: H160,
 
     // Below fields should only be set once during the syncing phase.
-    ilk_count: u32,
-    liquidation_thresholds: Box<[U256]>,
-    max_discounts: Box<[U256]>,
-    dusts: Box<[U256]>,
+    liquidation_threshold: U256,
+    max_discount: U256,
+    dust: U256,
     base_discount: U256,
     target_health: U256,
 }
@@ -87,26 +87,14 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
             deploy_contract(&mut revm, LIQUIDATIONHELPERS_BYTECODE.clone(), &[])
                 .expect("Failed to deploy LiquidationHelpers contract on REVM");
 
-        let collaterals = Box::new([*WST_ETH_ADDRESS, *ETHX_ADDRESS, *SW_ETH_ADDRESS]);
+        let collateral = *WEETH_ADDRESS;
 
-        let gem_joins = Box::new([*WST_ETH_GEM_JOIN, *ETHX_GEM_JOIN, *SW_ETH_GEM_JOIN]);
+        let gem_join = *WEETH_GEM_JOIN;
 
-        let wst_eth_pools = vec![
-            PoolInfo::Curve(address_to_bytes32(&ST_ETH_CURVE_POOL).into(), true),
-            PoolInfo::Uniswap(address_to_bytes32(&WST_ETH_UNISWAP_POOL).into(), false),
+        let dex_pools = vec![
+            PoolInfo::Curve(*WEETH_WETH_CURVE_POOL, false),
+            PoolInfo::Uniswap(*WEETH_WETH_UNISWAP_POOL, true),
         ];
-
-        let ethx_pools = vec![
-            PoolInfo::Curve(address_to_bytes32(&ETHX_CURVE_POOL).into(), true),
-            PoolInfo::Uniswap(address_to_bytes32(&ETHX_UNISWAP_POOL).into(), false),
-        ];
-
-        let sw_eth_pools = vec![
-            PoolInfo::Uniswap(address_to_bytes32(&SW_ETH_500_UNISWAP_POOL).into(), true),
-            PoolInfo::Uniswap(address_to_bytes32(&SW_ETH_3000_UNISWAP_POOL).into(), true),
-        ];
-
-        let dex_pools = vec![wst_eth_pools, ethx_pools, sw_eth_pools];
 
         Self {
             provider,
@@ -114,17 +102,16 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
             vaults: HashMap::new(),
             revm,
 
-            collaterals,
-            gem_joins,
+            collateral,
+            gem_join,
 
             dex_pools,
 
             liquidation_helper_addr,
-            ilk_count: 0,
 
-            liquidation_thresholds: Box::new([]),
-            max_discounts: Box::new([]),
-            dusts: Box::new([]),
+            liquidation_threshold: U256::zero(),
+            max_discount: U256::zero(),
+            dust: U256::zero(),
             base_discount: U256::zero(),
             target_health: U256::zero(),
         }
@@ -134,15 +121,6 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
 #[async_trait]
 impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<M> {
     async fn sync_state(&mut self) -> Result<()> {
-        let ilk_count = self
-            .ion_pool
-            .ilk_count()
-            .call()
-            .await
-            .expect("Calling ilk_count() failed")
-            .as_u32();
-        self.ilk_count = ilk_count;
-
         let starting_block = 0;
         let current_block = self.provider.get_block_number().await?.as_u64();
 
@@ -156,12 +134,21 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
 
         info!("Liquidator synced!");
 
+        info!("Liquidation threshold: {}", self.liquidation_threshold);
+        info!("Max discount: {}", self.max_discount);
+        info!("Dust: {}", self.dust);
+        info!("Base discount: {}", self.base_discount);
+        info!("Target health: {}", self.target_health);
+
         Ok(())
     }
 
     async fn process_event(&mut self, event: Event) -> Vec<Action> {
         match event {
-            // It is possible for a block to be processed before an IonPool event is. If the IonPool event would have put a vault (in memory) into a liquidatable state, then the liquidatable state of that vault will be recognized when the next block is processed.
+            // It is possible for a block to be processed before an IonPool
+            // event is. If the IonPool event would have put a vault (in memory)
+            // into a liquidatable state, then the liquidatable state of that
+            // vault will be recognized when the next block is processed.
             Event::NewBlock(block_number, block_timestamp) => {
                 info!("Processing new block");
 
@@ -189,15 +176,15 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
                         let sig: Vec<u8> = [252, 139, 29, 222].to_vec();
 
                         let args: Vec<u8> = encode(&[
-                            Token::Uint(info.collateral),
-                            Token::Uint(info.normalized_debt),
-                            Token::Uint(rate_data[key.ilk_index as usize].rate),
-                            Token::Uint(rate_data[key.ilk_index as usize].exchange_rate),
-                            Token::Uint(self.max_discounts[key.ilk_index as usize]),
-                            Token::Uint(self.base_discount),
-                            Token::Uint(self.target_health),
-                            Token::Uint(self.liquidation_thresholds[key.ilk_index as usize]),
-                            Token::Uint(self.dusts[key.ilk_index as usize])
+                            TUint(info.collateral),
+                            TUint(info.normalized_debt),
+                            TUint(rate_data[key.ilk_index as usize].rate),
+                            TUint(rate_data[key.ilk_index as usize].exchange_rate),
+                            TUint(self.max_discount),
+                            TUint(self.base_discount),
+                            TUint(self.target_health),
+                            TUint(self.liquidation_threshold),
+                            TUint(self.dust)
                         ]);
 
                         let tx_payload = [sig, args].concat();
@@ -223,7 +210,7 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
                                     let decoded_data = decoded_data
                                         .iter()
                                         .map(|token| match token {
-                                            Token::Uint(repay_amount) => *repay_amount,
+                                            TUint(repay_amount) => *repay_amount,
                                             _ => panic!("Unexpected token type"),
                                         })
                                         .collect::<Vec<U256>>();
@@ -266,7 +253,6 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
 
                         let simulations = self.simulate_liquidation(
                             &mut foundry_evm,
-                            key.ilk_index,
                             &tx_sender,
                             &key.user,
                         );
@@ -378,71 +364,50 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
     }
 
     async fn sync_parameters(&mut self) -> Result<()> {
-        let ilk_count = Token::Uint(self.ilk_count.into());
-        let liquidation = Token::Address(*LIQUIDATION_ADDRESS);
-        let ion_pool = Token::Address(self.ion_pool.address());
+        let liquidation = TAddress(*LIQUIDATION_ADDRESS);
+        let ion_pool = TAddress(self.ion_pool.address());
 
-        let constructor_args: Bytes = encode(&[ilk_count, ion_pool, liquidation]);
+        let constructor_args: Bytes = encode(&[ion_pool, liquidation]);
         let payload = [FETCHPARAMETERS_BYTECODE.clone(), constructor_args.into()].concat();
 
         let tx = TransactionRequest::default().data(payload);
 
         let return_data = self.provider.call(&tx.into(), None).await?;
 
-        // struct IlkParameterData {
-        //     uint256 liquidationThresholds;
-        //     uint256 maxDiscounts;
-        //     uint256 dusts;
-        // }
         // struct ParameterData {
+        //     uint256 liquidationThreshold;
+        //     uint256 maxDiscount;
+        //     uint256 dust;
         //     uint256 baseDiscount;
         //     uint256 targetHealth;
         // }
         let decoded_data = decode(
-            &[
-                Array(Box::new(Tuple(vec![Uint(256), Uint(256), Uint(256)]))),
-                Tuple(vec![Uint(256), Uint(256)]),
-            ],
+            &[Tuple(vec![
+                Uint(256),
+                Uint(256),
+                Uint(256),
+                Uint(256),
+                Uint(256),
+            ])],
             &return_data,
         )
         .expect("Failed to decode parameter return data");
 
-        let mut liquidation_thresholds_vec: Vec<U256> = vec![];
-        let mut max_discounts_vec: Vec<U256> = vec![];
-        let mut dusts_vec: Vec<U256> = vec![];
-
         for token in decoded_data {
             match token {
-                Token::Array(ilk_parameter_data) => {
-                    for parameter_data in ilk_parameter_data {
-                        match parameter_data {
-                            Token::Tuple(values) => {
-                                if values.len() != 3 {
-                                    panic!("Unexpected number of values in IlkParameterData tuple");
-                                }
-
-                                if let [Token::Uint(liquidation_thresholds), Token::Uint(max_discounts), Token::Uint(dusts)] =
-                                    &values[..]
-                                {
-                                    liquidation_thresholds_vec.push(*liquidation_thresholds);
-                                    max_discounts_vec.push(*max_discounts);
-                                    dusts_vec.push(*dusts);
-                                } else {
-                                    panic!("Invalid types for liquidation_thresholds and max_discounts");
-                                }
-                            }
-                            _ => panic!("Unexpected token type"),
-                        }
-                    }
-                }
-                Token::Tuple(values) => {
-                    if values.len() != 2 {
+                TTuple(values) => {
+                    if values.len() != 5 {
                         panic!("Unexpected number of values in ParameterData tuple");
                     }
 
-                    if let [Token::Uint(base_discount), Token::Uint(target_health)] = &values[..] {
-                        self.base_discount = *base_discount;
-                        self.target_health = *target_health;
+                    if let [TUint(liquidation_threshold), TUint(max_discount), TUint(dust), TUint(base_discount), TUint(target_health)] =
+                        values[..]
+                    {
+                        self.liquidation_threshold = liquidation_threshold;
+                        self.max_discount = max_discount;
+                        self.dust = dust;
+                        self.base_discount = base_discount;
+                        self.target_health = target_health;
                     } else {
                         panic!("Invalid types for base_discount and target_health");
                     }
@@ -451,19 +416,14 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
             }
         }
 
-        self.liquidation_thresholds = liquidation_thresholds_vec.into_boxed_slice();
-        self.max_discounts = max_discounts_vec.into_boxed_slice();
-        self.dusts = dusts_vec.into_boxed_slice();
-
         Ok(())
     }
 
     async fn fetch_rates_and_exchange_rates(&mut self) -> Result<Vec<IlkRateData>> {
-        let ilk_count = Token::Uint(self.ilk_count.into());
-        let liquidation = Token::Address(*LIQUIDATION_ADDRESS);
-        let ion_pool = Token::Address(*ION_POOL_ADDRESS);
+        let liquidation = TAddress(*LIQUIDATION_ADDRESS);
+        let ion_pool = TAddress(*ION_POOL_ADDRESS);
 
-        let constructor_args: Bytes = encode(&[ilk_count, liquidation, ion_pool]);
+        let constructor_args: Bytes = encode(&[liquidation, ion_pool]);
         let payload = [
             FETCHRATESANDEXCHANGERATES_BYTECODE.clone(),
             constructor_args.into(),
@@ -478,38 +438,29 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
         //     uint256 exchangeRate;
         //     uint256 ilkRate;
         // }
-        let decoded_data = decode(
-            &[Array(Box::new(Tuple(vec![Uint(256), Uint(256)])))],
-            &return_data,
-        )
-        .expect("Failed to decode rate/exchange rate return data");
+        let decoded_data = decode(&[Tuple(vec![Uint(256), Uint(256)])], &return_data)
+            .expect("Failed to decode rate/exchange rate return data");
 
-        let rate_and_exchange_rate_data: Vec<IlkRateData> = decoded_data
-            .iter()
-            .flat_map(|token| match token {
-                Token::Array(ilk_rate_data_vec) => ilk_rate_data_vec
-                    .iter()
-                    .map(|token| match token {
-                        Token::Tuple(values) => {
-                            if values.len() != 2 {
-                                panic!("Unexpected number of values in IlkRateData tuple");
-                            }
+        let rate_and_exchange_rate_data = decoded_data
+            .into_iter()
+            .map(|token| match token {
+                TTuple(values) => {
+                    if values.len() != 2 {
+                        panic!("Unexpected number of values in IlkRateData tuple");
+                    }
 
-                            if let [Token::Uint(exchange_rate), Token::Uint(rate)] = &values[..] {
-                                IlkRateData {
-                                    rate: *rate,
-                                    exchange_rate: *exchange_rate,
-                                }
-                            } else {
-                                panic!("Invalid types for rate and exchange_rate");
-                            }
+                    if let [TUint(exchange_rate), TUint(rate)] = values[..] {
+                        IlkRateData {
+                            rate,
+                            exchange_rate,
                         }
-                        _ => panic!("Unexpected token type"),
-                    })
-                    .collect::<Vec<IlkRateData>>(),
+                    } else {
+                        panic!("Invalid types for rate and exchange_rate");
+                    }
+                }
                 _ => panic!("Unexpected token type"),
             })
-            .collect();
+            .collect::<Vec<IlkRateData>>();
 
         Ok(rate_and_exchange_rate_data)
     }
@@ -690,7 +641,6 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
     fn simulate_liquidation(
         &self,
         evm: &mut EVM<CacheDB<SharedBackend>>,
-        ilk_index: u8,
         tx_sender: &Address,
         user: &H160,
     ) -> Vec<(
@@ -700,14 +650,14 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
         aBytes,
         H160, /*U256, u64, u64, &H160, aBytes*/
     )> {
+        info!("Simulating liquidation for user: {}", user);
         // Signature of the liquidate() function
-        let sig: Arc<[u8]> = Arc::new([108, 176, 68, 41]);
+        let sig: Arc<[u8]> = Arc::new([254, 112, 122, 46]);
 
         let common_args: Arc<[u8]> = encode(&[
-            Token::Uint(ilk_index.into()),
-            Token::Address(*user),
-            Token::Address(self.collaterals[ilk_index as usize]),
-            Token::Address(self.gem_joins[ilk_index as usize]),
+            TAddress(*user),
+            TAddress(self.collateral),
+            TAddress(self.gem_join),
         ])
         .as_slice()
         .into();
@@ -730,45 +680,36 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
             optimism: Default::default(),
         };
 
-        self.dex_pools[ilk_index as usize]
+        self.dex_pools
             .iter()
             .map(|pool_info| match pool_info {
-                PoolInfo::Curve(pool_id, weth_is_token0) => {
-                    let args: Arc<[u8]> = encode(&[
-                        Token::FixedBytes(pool_id.to_vec()),
-                        Token::Bool(*weth_is_token0),
-                    ])
-                    .as_slice()
-                    .into();
+                PoolInfo::Curve(pool_addr, weth_is_token0) => {
+                    let args: Arc<[u8]> = encode(&[TAddress(*pool_addr), TBool(*weth_is_token0)])
+                        .as_slice()
+                        .into();
 
                     let calldata = [sig.clone(), common_args.clone(), args].concat();
 
-                    let liquidator_addr = if ilk_index == 0 {
-                        *WST_ETH_CURVE_LIQUIDATOR
-                    } else {
-                        *CURVE_LIQUIDATOR
-                    };
+                    let liquidator_addr = *WEETH_CURVE_LIQUIDATOR;
 
                     tx.data = calldata.into();
                     tx.transact_to = TransactTo::Call(liquidator_addr.as_fixed_bytes().into());
 
                     (tx.clone(), liquidator_addr)
                 }
-                PoolInfo::Uniswap(pool_id, weth_is_token0) => {
-                    let args: Arc<[u8]> = encode(&[
-                        Token::FixedBytes(pool_id.to_vec()),
-                        Token::Bool(*weth_is_token0),
-                    ])
-                    .as_slice()
-                    .into();
+                PoolInfo::Uniswap(pool_addr, weth_is_token0) => {
+                    let args: Arc<[u8]> = encode(&[TAddress(*pool_addr), TBool(*weth_is_token0)])
+                        .as_slice()
+                        .into();
 
                     let calldata = [sig.clone(), common_args.clone(), args].concat();
 
-                    tx.data = calldata.into();
-                    tx.transact_to =
-                        TransactTo::Call((*UNISWAP_LIQUIDATOR).as_fixed_bytes().into());
+                    let liquidator_addr = *WEETH_UNISWAP_LIQUIDATOR;
 
-                    (tx.clone(), *UNISWAP_LIQUIDATOR)
+                    tx.data = calldata.into();
+                    tx.transact_to = TransactTo::Call((liquidator_addr).as_fixed_bytes().into());
+
+                    (tx.clone(), liquidator_addr)
                 }
             })
             .map(|(tx, liquidator_addr)| {
@@ -803,7 +744,7 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
                                 decoded_data
                                     .into_iter()
                                     .map(|token| match token {
-                                        Token::Uint(treasury_reward) => treasury_reward,
+                                        TUint(treasury_reward) => treasury_reward,
                                         _ => panic!("Unexpected token type"),
                                     })
                                     .collect::<Vec<U256>>()[0]

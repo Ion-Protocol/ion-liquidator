@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-
 import { LiquidationHelpersSharedSetup } from "../../helpers/LiquidationHelpersSharedSetup.sol";
 
 import { WadRayMath } from "@ionprotocol/src/libraries/math/WadRayMath.sol";
@@ -45,15 +44,15 @@ contract LiqudationHelpers_FuzzTest is LiquidationHelpersSharedSetup {
     }
 
     function test_GetLiquidationTypeBounds1() public {
-        $.maxDiscount = 0.2e27;
-        $.targetHealth = 1.25e27;
-        $.dust = 0;
-        $.liquidationThreshold = 0.92e27;
-        $.normalizedDebt = 2_312_575_154_794_509_358;
-        $.collateralAmount = 3_000_000_000_000_000_000;
-        $.rate = 1_000_000_057_141_349_455_516_898_485;
+        $.liquidationThreshold = 920000000000000000000000000;
+        $.maxDiscount = 200000000000000000000000000;
+        $.dust = 1000000000000000000000000000000000000000000000;
         $.baseDiscount = 0;
-        $.dust = 0;
+        $.targetHealth = 1250000000000000000000000000;
+
+        $.normalizedDebt = 1783483136203109154;
+        $.collateralAmount = 3124009180067076394;
+        $.rate = 1000000014213077987990267835;
 
         (uint256 partialLiquidationBound, uint256 fullLiquidationBound, uint256 protocolLiquidationBound) =
             liquidationHelpers.getLiquidationTypeBounds($);

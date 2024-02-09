@@ -1,5 +1,4 @@
 use crate::executors::mempool_executor::SubmitTxToMempool;
-use alloy_primitives::B256;
 use ethers_core::types::{Log, H160, U256};
 
 #[derive(Debug, Clone)]
@@ -21,8 +20,8 @@ pub enum Action {
 
 #[derive(Debug, Clone)]
 pub enum PoolInfo {
-    Uniswap(B256, bool),
-    Curve(B256, bool),
+    Uniswap(H160, bool),
+    Curve(H160, bool),
 }
 
 #[derive(Hash, Debug, Clone, Eq, PartialEq)]

@@ -44,7 +44,7 @@ abstract contract LiquidatorForkSharedSetup is WeEthIonPoolSharedSetup {
     WeEthUniswapLiquidator weEthUniswapLiquidator;
 
     function setUp() public virtual override {
-        vm.createSelectFork(vm.envString("RPC_URL"), 19_017_314);
+        vm.createSelectFork(vm.envString("RPC_URL"));
 
         super.setUp();
 
