@@ -26,13 +26,13 @@ pub mod swell_library {
         __abi,
     );
     #[rustfmt::skip]
-    const __BYTECODE: &[u8] = b"`V`P`\x0B\x82\x82\x829\x80Q`\0\x1A`s\x14`CW\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0`\0R`\0`\x04R`$`\0\xFD[0`\0R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R`\0\x80\xFD\xFE\xA2dipfsX\"\x12 v\x0B\xCD\xC6+9Y\xF3\xC9L`\xFB\xD2\x9B\x9E\xF3?\x92U\x0F\n\xD7\xB9y,u\xA7\x1F\nP%[dsolcC\0\x08\x15\x003";
+    const __BYTECODE: &[u8] = b"`U`K`\x0B\x82\x82\x829\x80Q_\x1A`s\x14`?W\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0_R_`\x04R`$_\xFD[0_R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 R\x81\xAB\xCC\x7F\x19\xC6]\x8FBg\xE0\xF6){.\x80B\xED#Z\xDBgb\xE6\xA8sl\xE1\xF2>VdsolcC\0\x08\x15\x003";
     /// The bytecode of the contract.
     pub static SWELLLIBRARY_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __BYTECODE,
     );
     #[rustfmt::skip]
-    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R`\0\x80\xFD\xFE\xA2dipfsX\"\x12 v\x0B\xCD\xC6+9Y\xF3\xC9L`\xFB\xD2\x9B\x9E\xF3?\x92U\x0F\n\xD7\xB9y,u\xA7\x1F\nP%[dsolcC\0\x08\x15\x003";
+    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 R\x81\xAB\xCC\x7F\x19\xC6]\x8FBg\xE0\xF6){.\x80B\xED#Z\xDBgb\xE6\xA8sl\xE1\xF2>VdsolcC\0\x08\x15\x003";
     /// The deployed bytecode of the contract.
     pub static SWELLLIBRARY_DEPLOYED_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __DEPLOYED_BYTECODE,

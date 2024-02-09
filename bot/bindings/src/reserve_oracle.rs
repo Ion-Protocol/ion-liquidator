@@ -186,6 +186,28 @@ pub mod reserve_oracle {
                     ],
                 ),
                 (
+                    ::std::borrow::ToOwned::to_owned("lastUpdated"),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::Function {
+                            name: ::std::borrow::ToOwned::to_owned("lastUpdated"),
+                            inputs: ::std::vec![],
+                            outputs: ::std::vec![
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::string::String::new(),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                            ],
+                            constant: ::core::option::Option::None,
+                            state_mutability: ::ethers::core::abi::ethabi::StateMutability::View,
+                        },
+                    ],
+                ),
+                (
                     ::std::borrow::ToOwned::to_owned("updateExchangeRate"),
                     ::std::vec![
                         ::ethers::core::abi::ethabi::Function {
@@ -226,7 +248,7 @@ pub mod reserve_oracle {
                             name: ::std::borrow::ToOwned::to_owned("InvalidFeedLength"),
                             inputs: ::std::vec![
                                 ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("length"),
+                                    name: ::std::borrow::ToOwned::to_owned("invalidLength"),
                                     kind: ::ethers::core::abi::ethabi::ParamType::Uint(
                                         256usize,
                                     ),
@@ -247,7 +269,56 @@ pub mod reserve_oracle {
                             ),
                             inputs: ::std::vec![
                                 ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("exchangeRate"),
+                                    name: ::std::borrow::ToOwned::to_owned(
+                                        "invalidExchangeRate",
+                                    ),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                            ],
+                        },
+                    ],
+                ),
+                (
+                    ::std::borrow::ToOwned::to_owned("InvalidMaxChange"),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::AbiError {
+                            name: ::std::borrow::ToOwned::to_owned("InvalidMaxChange"),
+                            inputs: ::std::vec![
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned("invalidMaxChange"),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                            ],
+                        },
+                    ],
+                ),
+                (
+                    ::std::borrow::ToOwned::to_owned("InvalidMinMax"),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::AbiError {
+                            name: ::std::borrow::ToOwned::to_owned("InvalidMinMax"),
+                            inputs: ::std::vec![
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned("invalidMin"),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned("invalidMax"),
                                     kind: ::ethers::core::abi::ethabi::ParamType::Uint(
                                         256usize,
                                     ),
@@ -266,7 +337,7 @@ pub mod reserve_oracle {
                             name: ::std::borrow::ToOwned::to_owned("InvalidQuorum"),
                             inputs: ::std::vec![
                                 ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("quorum"),
+                                    name: ::std::borrow::ToOwned::to_owned("invalidQuorum"),
                                     kind: ::ethers::core::abi::ethabi::ParamType::Uint(8usize),
                                     internal_type: ::core::option::Option::Some(
                                         ::std::borrow::ToOwned::to_owned("uint8"),
@@ -284,6 +355,25 @@ pub mod reserve_oracle {
                                 "MathOverflowedMulDiv",
                             ),
                             inputs: ::std::vec![],
+                        },
+                    ],
+                ),
+                (
+                    ::std::borrow::ToOwned::to_owned("UpdateCooldown"),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::AbiError {
+                            name: ::std::borrow::ToOwned::to_owned("UpdateCooldown"),
+                            inputs: ::std::vec![
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned("lastUpdated"),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                            ],
                         },
                     ],
                 ),
@@ -404,6 +494,14 @@ pub mod reserve_oracle {
                 .method_hash([241, 53, 151, 166], ())
                 .expect("method not found (this should never happen)")
         }
+        ///Calls the contract's `lastUpdated` (0xd0b06f5d) function
+        pub fn last_updated(
+            &self,
+        ) -> ::ethers::contract::builders::ContractCall<M, ::ethers::core::types::U256> {
+            self.0
+                .method_hash([208, 176, 111, 93], ())
+                .expect("method not found (this should never happen)")
+        }
         ///Calls the contract's `updateExchangeRate` (0x02ce728f) function
         pub fn update_exchange_rate(
             &self,
@@ -454,7 +552,7 @@ pub mod reserve_oracle {
     )]
     #[etherror(name = "InvalidFeedLength", abi = "InvalidFeedLength(uint256)")]
     pub struct InvalidFeedLength {
-        pub length: ::ethers::core::types::U256,
+        pub invalid_length: ::ethers::core::types::U256,
     }
     ///Custom Error type `InvalidInitialization` with signature `InvalidInitialization(uint256)` and selector `0x02f35f83`
     #[derive(
@@ -471,7 +569,42 @@ pub mod reserve_oracle {
     )]
     #[etherror(name = "InvalidInitialization", abi = "InvalidInitialization(uint256)")]
     pub struct InvalidInitialization {
-        pub exchange_rate: ::ethers::core::types::U256,
+        pub invalid_exchange_rate: ::ethers::core::types::U256,
+    }
+    ///Custom Error type `InvalidMaxChange` with signature `InvalidMaxChange(uint256)` and selector `0xd8912ac5`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthError,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[etherror(name = "InvalidMaxChange", abi = "InvalidMaxChange(uint256)")]
+    pub struct InvalidMaxChange {
+        pub invalid_max_change: ::ethers::core::types::U256,
+    }
+    ///Custom Error type `InvalidMinMax` with signature `InvalidMinMax(uint256,uint256)` and selector `0xf60db6cc`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthError,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[etherror(name = "InvalidMinMax", abi = "InvalidMinMax(uint256,uint256)")]
+    pub struct InvalidMinMax {
+        pub invalid_min: ::ethers::core::types::U256,
+        pub invalid_max: ::ethers::core::types::U256,
     }
     ///Custom Error type `InvalidQuorum` with signature `InvalidQuorum(uint8)` and selector `0x4c7795ff`
     #[derive(
@@ -488,7 +621,7 @@ pub mod reserve_oracle {
     )]
     #[etherror(name = "InvalidQuorum", abi = "InvalidQuorum(uint8)")]
     pub struct InvalidQuorum {
-        pub quorum: u8,
+        pub invalid_quorum: u8,
     }
     ///Custom Error type `MathOverflowedMulDiv` with signature `MathOverflowedMulDiv()` and selector `0x227bc153`
     #[derive(
@@ -505,6 +638,23 @@ pub mod reserve_oracle {
     )]
     #[etherror(name = "MathOverflowedMulDiv", abi = "MathOverflowedMulDiv()")]
     pub struct MathOverflowedMulDiv;
+    ///Custom Error type `UpdateCooldown` with signature `UpdateCooldown(uint256)` and selector `0x00d42941`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthError,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[etherror(name = "UpdateCooldown", abi = "UpdateCooldown(uint256)")]
+    pub struct UpdateCooldown {
+        pub last_updated: ::ethers::core::types::U256,
+    }
     ///Container type for all of the contract's custom errors
     #[derive(
         Clone,
@@ -519,8 +669,11 @@ pub mod reserve_oracle {
     pub enum ReserveOracleErrors {
         InvalidFeedLength(InvalidFeedLength),
         InvalidInitialization(InvalidInitialization),
+        InvalidMaxChange(InvalidMaxChange),
+        InvalidMinMax(InvalidMinMax),
         InvalidQuorum(InvalidQuorum),
         MathOverflowedMulDiv(MathOverflowedMulDiv),
+        UpdateCooldown(UpdateCooldown),
         /// The standard solidity revert string, with selector
         /// Error(string) -- 0x08c379a0
         RevertString(::std::string::String),
@@ -545,6 +698,16 @@ pub mod reserve_oracle {
             ) {
                 return Ok(Self::InvalidInitialization(decoded));
             }
+            if let Ok(decoded) = <InvalidMaxChange as ::ethers::core::abi::AbiDecode>::decode(
+                data,
+            ) {
+                return Ok(Self::InvalidMaxChange(decoded));
+            }
+            if let Ok(decoded) = <InvalidMinMax as ::ethers::core::abi::AbiDecode>::decode(
+                data,
+            ) {
+                return Ok(Self::InvalidMinMax(decoded));
+            }
             if let Ok(decoded) = <InvalidQuorum as ::ethers::core::abi::AbiDecode>::decode(
                 data,
             ) {
@@ -554,6 +717,11 @@ pub mod reserve_oracle {
                 data,
             ) {
                 return Ok(Self::MathOverflowedMulDiv(decoded));
+            }
+            if let Ok(decoded) = <UpdateCooldown as ::ethers::core::abi::AbiDecode>::decode(
+                data,
+            ) {
+                return Ok(Self::UpdateCooldown(decoded));
             }
             Err(::ethers::core::abi::Error::InvalidData.into())
         }
@@ -567,10 +735,19 @@ pub mod reserve_oracle {
                 Self::InvalidInitialization(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
+                Self::InvalidMaxChange(element) => {
+                    ::ethers::core::abi::AbiEncode::encode(element)
+                }
+                Self::InvalidMinMax(element) => {
+                    ::ethers::core::abi::AbiEncode::encode(element)
+                }
                 Self::InvalidQuorum(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
                 Self::MathOverflowedMulDiv(element) => {
+                    ::ethers::core::abi::AbiEncode::encode(element)
+                }
+                Self::UpdateCooldown(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
                 Self::RevertString(s) => ::ethers::core::abi::AbiEncode::encode(s),
@@ -590,11 +767,23 @@ pub mod reserve_oracle {
                     true
                 }
                 _ if selector
+                    == <InvalidMaxChange as ::ethers::contract::EthError>::selector() => {
+                    true
+                }
+                _ if selector
+                    == <InvalidMinMax as ::ethers::contract::EthError>::selector() => {
+                    true
+                }
+                _ if selector
                     == <InvalidQuorum as ::ethers::contract::EthError>::selector() => {
                     true
                 }
                 _ if selector
                     == <MathOverflowedMulDiv as ::ethers::contract::EthError>::selector() => {
+                    true
+                }
+                _ if selector
+                    == <UpdateCooldown as ::ethers::contract::EthError>::selector() => {
                     true
                 }
                 _ => false,
@@ -608,10 +797,13 @@ pub mod reserve_oracle {
                 Self::InvalidInitialization(element) => {
                     ::core::fmt::Display::fmt(element, f)
                 }
+                Self::InvalidMaxChange(element) => ::core::fmt::Display::fmt(element, f),
+                Self::InvalidMinMax(element) => ::core::fmt::Display::fmt(element, f),
                 Self::InvalidQuorum(element) => ::core::fmt::Display::fmt(element, f),
                 Self::MathOverflowedMulDiv(element) => {
                     ::core::fmt::Display::fmt(element, f)
                 }
+                Self::UpdateCooldown(element) => ::core::fmt::Display::fmt(element, f),
                 Self::RevertString(s) => ::core::fmt::Display::fmt(s, f),
             }
         }
@@ -631,6 +823,16 @@ pub mod reserve_oracle {
             Self::InvalidInitialization(value)
         }
     }
+    impl ::core::convert::From<InvalidMaxChange> for ReserveOracleErrors {
+        fn from(value: InvalidMaxChange) -> Self {
+            Self::InvalidMaxChange(value)
+        }
+    }
+    impl ::core::convert::From<InvalidMinMax> for ReserveOracleErrors {
+        fn from(value: InvalidMinMax) -> Self {
+            Self::InvalidMinMax(value)
+        }
+    }
     impl ::core::convert::From<InvalidQuorum> for ReserveOracleErrors {
         fn from(value: InvalidQuorum) -> Self {
             Self::InvalidQuorum(value)
@@ -639,6 +841,11 @@ pub mod reserve_oracle {
     impl ::core::convert::From<MathOverflowedMulDiv> for ReserveOracleErrors {
         fn from(value: MathOverflowedMulDiv) -> Self {
             Self::MathOverflowedMulDiv(value)
+        }
+    }
+    impl ::core::convert::From<UpdateCooldown> for ReserveOracleErrors {
+        fn from(value: UpdateCooldown) -> Self {
+            Self::UpdateCooldown(value)
         }
     }
     #[derive(
@@ -777,6 +984,21 @@ pub mod reserve_oracle {
     )]
     #[ethcall(name = "getProtocolExchangeRate", abi = "getProtocolExchangeRate()")]
     pub struct GetProtocolExchangeRateCall;
+    ///Container type for all input parameters for the `lastUpdated` function with signature `lastUpdated()` and selector `0xd0b06f5d`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthCall,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[ethcall(name = "lastUpdated", abi = "lastUpdated()")]
+    pub struct LastUpdatedCall;
     ///Container type for all input parameters for the `updateExchangeRate` function with signature `updateExchangeRate()` and selector `0x02ce728f`
     #[derive(
         Clone,
@@ -812,6 +1034,7 @@ pub mod reserve_oracle {
         Quorum(QuorumCall),
         CurrentExchangeRate(CurrentExchangeRateCall),
         GetProtocolExchangeRate(GetProtocolExchangeRateCall),
+        LastUpdated(LastUpdatedCall),
         UpdateExchangeRate(UpdateExchangeRateCall),
     }
     impl ::ethers::core::abi::AbiDecode for ReserveOracleCalls {
@@ -859,6 +1082,11 @@ pub mod reserve_oracle {
             ) {
                 return Ok(Self::GetProtocolExchangeRate(decoded));
             }
+            if let Ok(decoded) = <LastUpdatedCall as ::ethers::core::abi::AbiDecode>::decode(
+                data,
+            ) {
+                return Ok(Self::LastUpdated(decoded));
+            }
             if let Ok(decoded) = <UpdateExchangeRateCall as ::ethers::core::abi::AbiDecode>::decode(
                 data,
             ) {
@@ -886,6 +1114,9 @@ pub mod reserve_oracle {
                 Self::GetProtocolExchangeRate(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
+                Self::LastUpdated(element) => {
+                    ::ethers::core::abi::AbiEncode::encode(element)
+                }
                 Self::UpdateExchangeRate(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
@@ -907,6 +1138,7 @@ pub mod reserve_oracle {
                 Self::GetProtocolExchangeRate(element) => {
                     ::core::fmt::Display::fmt(element, f)
                 }
+                Self::LastUpdated(element) => ::core::fmt::Display::fmt(element, f),
                 Self::UpdateExchangeRate(element) => {
                     ::core::fmt::Display::fmt(element, f)
                 }
@@ -951,6 +1183,11 @@ pub mod reserve_oracle {
     impl ::core::convert::From<GetProtocolExchangeRateCall> for ReserveOracleCalls {
         fn from(value: GetProtocolExchangeRateCall) -> Self {
             Self::GetProtocolExchangeRate(value)
+        }
+    }
+    impl ::core::convert::From<LastUpdatedCall> for ReserveOracleCalls {
+        fn from(value: LastUpdatedCall) -> Self {
+            Self::LastUpdated(value)
         }
     }
     impl ::core::convert::From<UpdateExchangeRateCall> for ReserveOracleCalls {
@@ -1070,4 +1307,18 @@ pub mod reserve_oracle {
         Hash
     )]
     pub struct GetProtocolExchangeRateReturn(pub ::ethers::core::types::U256);
+    ///Container type for all return fields from the `lastUpdated` function with signature `lastUpdated()` and selector `0xd0b06f5d`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthAbiType,
+        ::ethers::contract::EthAbiCodec,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    pub struct LastUpdatedReturn(pub ::ethers::core::types::U256);
 }

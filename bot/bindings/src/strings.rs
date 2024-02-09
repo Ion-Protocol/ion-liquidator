@@ -1,4 +1,4 @@
-pub use mock_yield_oracle::*;
+pub use strings::*;
 /// This module was auto-generated with ethers-rs Abigen.
 /// More information at: <https://github.com/gakonst/ethers-rs>
 #[allow(
@@ -9,20 +9,33 @@ pub use mock_yield_oracle::*;
     dead_code,
     non_camel_case_types,
 )]
-pub mod mock_yield_oracle {
+pub mod strings {
     #[allow(deprecated)]
     fn __abi() -> ::ethers::core::abi::Abi {
         ::ethers::core::abi::ethabi::Contract {
             constructor: ::core::option::Option::None,
-            functions: ::core::convert::From::from([
+            functions: ::std::collections::BTreeMap::new(),
+            events: ::std::collections::BTreeMap::new(),
+            errors: ::core::convert::From::from([
                 (
-                    ::std::borrow::ToOwned::to_owned("apys"),
+                    ::std::borrow::ToOwned::to_owned("StringsInsufficientHexLength"),
                     ::std::vec![
-                        ::ethers::core::abi::ethabi::Function {
-                            name: ::std::borrow::ToOwned::to_owned("apys"),
+                        ::ethers::core::abi::ethabi::AbiError {
+                            name: ::std::borrow::ToOwned::to_owned(
+                                "StringsInsufficientHexLength",
+                            ),
                             inputs: ::std::vec![
                                 ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::string::String::new(),
+                                    name: ::std::borrow::ToOwned::to_owned("value"),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned("length"),
                                     kind: ::ethers::core::abi::ethabi::ParamType::Uint(
                                         256usize,
                                     ),
@@ -31,68 +44,53 @@ pub mod mock_yield_oracle {
                                     ),
                                 },
                             ],
-                            outputs: ::std::vec![
-                                ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::string::String::new(),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(32usize),
-                                    internal_type: ::core::option::Option::Some(
-                                        ::std::borrow::ToOwned::to_owned("uint32"),
-                                    ),
-                                },
-                            ],
-                            constant: ::core::option::Option::None,
-                            state_mutability: ::ethers::core::abi::ethabi::StateMutability::View,
                         },
                     ],
                 ),
             ]),
-            events: ::std::collections::BTreeMap::new(),
-            errors: ::std::collections::BTreeMap::new(),
             receive: false,
             fallback: false,
         }
     }
     ///The parsed JSON ABI of the contract.
-    pub static MOCKYIELDORACLE_ABI: ::ethers::contract::Lazy<::ethers::core::abi::Abi> = ::ethers::contract::Lazy::new(
+    pub static STRINGS_ABI: ::ethers::contract::Lazy<::ethers::core::abi::Abi> = ::ethers::contract::Lazy::new(
         __abi,
     );
     #[rustfmt::skip]
-    const __BYTECODE: &[u8] = b"`\x80`@Rb4\xA4\x90_\x80a\x01\0\n\x81T\x81c\xFF\xFF\xFF\xFF\x02\x19\x16\x90\x83c\xFF\xFF\xFF\xFF\x16\x02\x17\x90UP4\x80\x15a\x001W_\x80\xFD[Pa\x01E\x80a\0?_9_\xF3\xFE`\x80`@R4\x80\x15a\0\x0FW_\x80\xFD[P`\x046\x10a\0)W_5`\xE0\x1C\x80c\x81\xCE\x1C#\x14a\0-W[_\x80\xFD[a\0G`\x04\x806\x03\x81\x01\x90a\0B\x91\x90a\0\xADV[a\0]V[`@Qa\0T\x91\x90a\0\xF6V[`@Q\x80\x91\x03\x90\xF3[_\x80_\x90T\x90a\x01\0\n\x90\x04c\xFF\xFF\xFF\xFF\x16\x90P\x91\x90PV[_\x80\xFD[_\x81\x90P\x91\x90PV[a\0\x8C\x81a\0zV[\x81\x14a\0\x96W_\x80\xFD[PV[_\x815\x90Pa\0\xA7\x81a\0\x83V[\x92\x91PPV[_` \x82\x84\x03\x12\x15a\0\xC2Wa\0\xC1a\0vV[[_a\0\xCF\x84\x82\x85\x01a\0\x99V[\x91PP\x92\x91PPV[_c\xFF\xFF\xFF\xFF\x82\x16\x90P\x91\x90PV[a\0\xF0\x81a\0\xD8V[\x82RPPV[_` \x82\x01\x90Pa\x01\t_\x83\x01\x84a\0\xE7V[\x92\x91PPV\xFE\xA2dipfsX\"\x12 \xC4\xE2\xD5\x02\xD5\xF5\xB7>\xD2\x01)\x9F]\xCE\xA7w\x98XT\x87te\x8A\x1A\x8A\x1D\xB9\xCC\xD0*fMdsolcC\0\x08\x15\x003";
+    const __BYTECODE: &[u8] = b"`U`K`\x0B\x82\x82\x829\x80Q_\x1A`s\x14`?W\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0_R_`\x04R`$_\xFD[0_R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 \x9A\xF3j\x04\xC7\x81\xD4\xEFZ\x05\x84,l\xF6\x97t\xF7\x1F&\xFA\x06{\xE3\x9D\x06\xAE7v\xBD\rK\x8AdsolcC\0\x08\x15\x003";
     /// The bytecode of the contract.
-    pub static MOCKYIELDORACLE_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
+    pub static STRINGS_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __BYTECODE,
     );
     #[rustfmt::skip]
-    const __DEPLOYED_BYTECODE: &[u8] = b"`\x80`@R4\x80\x15a\0\x0FW_\x80\xFD[P`\x046\x10a\0)W_5`\xE0\x1C\x80c\x81\xCE\x1C#\x14a\0-W[_\x80\xFD[a\0G`\x04\x806\x03\x81\x01\x90a\0B\x91\x90a\0\xADV[a\0]V[`@Qa\0T\x91\x90a\0\xF6V[`@Q\x80\x91\x03\x90\xF3[_\x80_\x90T\x90a\x01\0\n\x90\x04c\xFF\xFF\xFF\xFF\x16\x90P\x91\x90PV[_\x80\xFD[_\x81\x90P\x91\x90PV[a\0\x8C\x81a\0zV[\x81\x14a\0\x96W_\x80\xFD[PV[_\x815\x90Pa\0\xA7\x81a\0\x83V[\x92\x91PPV[_` \x82\x84\x03\x12\x15a\0\xC2Wa\0\xC1a\0vV[[_a\0\xCF\x84\x82\x85\x01a\0\x99V[\x91PP\x92\x91PPV[_c\xFF\xFF\xFF\xFF\x82\x16\x90P\x91\x90PV[a\0\xF0\x81a\0\xD8V[\x82RPPV[_` \x82\x01\x90Pa\x01\t_\x83\x01\x84a\0\xE7V[\x92\x91PPV\xFE\xA2dipfsX\"\x12 \xC4\xE2\xD5\x02\xD5\xF5\xB7>\xD2\x01)\x9F]\xCE\xA7w\x98XT\x87te\x8A\x1A\x8A\x1D\xB9\xCC\xD0*fMdsolcC\0\x08\x15\x003";
+    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 \x9A\xF3j\x04\xC7\x81\xD4\xEFZ\x05\x84,l\xF6\x97t\xF7\x1F&\xFA\x06{\xE3\x9D\x06\xAE7v\xBD\rK\x8AdsolcC\0\x08\x15\x003";
     /// The deployed bytecode of the contract.
-    pub static MOCKYIELDORACLE_DEPLOYED_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
+    pub static STRINGS_DEPLOYED_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __DEPLOYED_BYTECODE,
     );
-    pub struct MockYieldOracle<M>(::ethers::contract::Contract<M>);
-    impl<M> ::core::clone::Clone for MockYieldOracle<M> {
+    pub struct Strings<M>(::ethers::contract::Contract<M>);
+    impl<M> ::core::clone::Clone for Strings<M> {
         fn clone(&self) -> Self {
             Self(::core::clone::Clone::clone(&self.0))
         }
     }
-    impl<M> ::core::ops::Deref for MockYieldOracle<M> {
+    impl<M> ::core::ops::Deref for Strings<M> {
         type Target = ::ethers::contract::Contract<M>;
         fn deref(&self) -> &Self::Target {
             &self.0
         }
     }
-    impl<M> ::core::ops::DerefMut for MockYieldOracle<M> {
+    impl<M> ::core::ops::DerefMut for Strings<M> {
         fn deref_mut(&mut self) -> &mut Self::Target {
             &mut self.0
         }
     }
-    impl<M> ::core::fmt::Debug for MockYieldOracle<M> {
+    impl<M> ::core::fmt::Debug for Strings<M> {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-            f.debug_tuple(::core::stringify!(MockYieldOracle))
-                .field(&self.address())
-                .finish()
+            f.debug_tuple(::core::stringify!(Strings)).field(&self.address()).finish()
         }
     }
-    impl<M: ::ethers::providers::Middleware> MockYieldOracle<M> {
+    impl<M: ::ethers::providers::Middleware> Strings<M> {
         /// Creates a new contract instance with the specified `ethers` client at
         /// `address`. The contract derefs to a `ethers::Contract` object.
         pub fn new<T: Into<::ethers::core::types::Address>>(
@@ -102,7 +100,7 @@ pub mod mock_yield_oracle {
             Self(
                 ::ethers::contract::Contract::new(
                     address.into(),
-                    MOCKYIELDORACLE_ABI.clone(),
+                    STRINGS_ABI.clone(),
                     client,
                 ),
             )
@@ -138,34 +136,25 @@ pub mod mock_yield_oracle {
             ::ethers::contract::ContractError<M>,
         > {
             let factory = ::ethers::contract::ContractFactory::new(
-                MOCKYIELDORACLE_ABI.clone(),
-                MOCKYIELDORACLE_BYTECODE.clone().into(),
+                STRINGS_ABI.clone(),
+                STRINGS_BYTECODE.clone().into(),
                 client,
             );
             let deployer = factory.deploy(constructor_args)?;
             let deployer = ::ethers::contract::ContractDeployer::new(deployer);
             Ok(deployer)
         }
-        ///Calls the contract's `apys` (0x81ce1c23) function
-        pub fn apys(
-            &self,
-            p0: ::ethers::core::types::U256,
-        ) -> ::ethers::contract::builders::ContractCall<M, u32> {
-            self.0
-                .method_hash([129, 206, 28, 35], p0)
-                .expect("method not found (this should never happen)")
-        }
     }
     impl<M: ::ethers::providers::Middleware> From<::ethers::contract::Contract<M>>
-    for MockYieldOracle<M> {
+    for Strings<M> {
         fn from(contract: ::ethers::contract::Contract<M>) -> Self {
             Self::new(contract.address(), contract.client())
         }
     }
-    ///Container type for all input parameters for the `apys` function with signature `apys(uint256)` and selector `0x81ce1c23`
+    ///Custom Error type `StringsInsufficientHexLength` with signature `StringsInsufficientHexLength(uint256,uint256)` and selector `0xe22e27eb`
     #[derive(
         Clone,
-        ::ethers::contract::EthCall,
+        ::ethers::contract::EthError,
         ::ethers::contract::EthDisplay,
         serde::Serialize,
         serde::Deserialize,
@@ -175,20 +164,12 @@ pub mod mock_yield_oracle {
         Eq,
         Hash
     )]
-    #[ethcall(name = "apys", abi = "apys(uint256)")]
-    pub struct ApysCall(pub ::ethers::core::types::U256);
-    ///Container type for all return fields from the `apys` function with signature `apys(uint256)` and selector `0x81ce1c23`
-    #[derive(
-        Clone,
-        ::ethers::contract::EthAbiType,
-        ::ethers::contract::EthAbiCodec,
-        serde::Serialize,
-        serde::Deserialize,
-        Default,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash
+    #[etherror(
+        name = "StringsInsufficientHexLength",
+        abi = "StringsInsufficientHexLength(uint256,uint256)"
     )]
-    pub struct ApysReturn(pub u32);
+    pub struct StringsInsufficientHexLength {
+        pub value: ::ethers::core::types::U256,
+        pub length: ::ethers::core::types::U256,
+    }
 }

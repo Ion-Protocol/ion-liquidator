@@ -1,4 +1,4 @@
-pub use ion_pausable_upgradeable::*;
+pub use pausable_upgradeable::*;
 /// This module was auto-generated with ethers-rs Abigen.
 /// More information at: <https://github.com/gakonst/ethers-rs>
 #[allow(
@@ -9,7 +9,7 @@ pub use ion_pausable_upgradeable::*;
     dead_code,
     non_camel_case_types,
 )]
-pub mod ion_pausable_upgradeable {
+pub mod pausable_upgradeable {
     #[allow(deprecated)]
     fn __abi() -> ::ethers::core::abi::Abi {
         ::ethers::core::abi::ethabi::Contract {
@@ -20,17 +20,7 @@ pub mod ion_pausable_upgradeable {
                     ::std::vec![
                         ::ethers::core::abi::ethabi::Function {
                             name: ::std::borrow::ToOwned::to_owned("paused"),
-                            inputs: ::std::vec![
-                                ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("pauseIndex"),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(8usize),
-                                    internal_type: ::core::option::Option::Some(
-                                        ::std::borrow::ToOwned::to_owned(
-                                            "enum IonPausableUpgradeable.Pauses",
-                                        ),
-                                    ),
-                                },
-                            ],
+                            inputs: ::std::vec![],
                             outputs: ::std::vec![
                                 ::ethers::core::abi::ethabi::Param {
                                     name: ::std::string::String::new(),
@@ -70,11 +60,6 @@ pub mod ion_pausable_upgradeable {
                             name: ::std::borrow::ToOwned::to_owned("Paused"),
                             inputs: ::std::vec![
                                 ::ethers::core::abi::ethabi::EventParam {
-                                    name: ::std::borrow::ToOwned::to_owned("pauseIndex"),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(8usize),
-                                    indexed: true,
-                                },
-                                ::ethers::core::abi::ethabi::EventParam {
                                     name: ::std::borrow::ToOwned::to_owned("account"),
                                     kind: ::ethers::core::abi::ethabi::ParamType::Address,
                                     indexed: false,
@@ -90,11 +75,6 @@ pub mod ion_pausable_upgradeable {
                         ::ethers::core::abi::ethabi::Event {
                             name: ::std::borrow::ToOwned::to_owned("Unpaused"),
                             inputs: ::std::vec![
-                                ::ethers::core::abi::ethabi::EventParam {
-                                    name: ::std::borrow::ToOwned::to_owned("pauseIndex"),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(8usize),
-                                    indexed: true,
-                                },
                                 ::ethers::core::abi::ethabi::EventParam {
                                     name: ::std::borrow::ToOwned::to_owned("account"),
                                     kind: ::ethers::core::abi::ethabi::ParamType::Address,
@@ -112,17 +92,7 @@ pub mod ion_pausable_upgradeable {
                     ::std::vec![
                         ::ethers::core::abi::ethabi::AbiError {
                             name: ::std::borrow::ToOwned::to_owned("EnforcedPause"),
-                            inputs: ::std::vec![
-                                ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("pauseIndex"),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(8usize),
-                                    internal_type: ::core::option::Option::Some(
-                                        ::std::borrow::ToOwned::to_owned(
-                                            "enum IonPausableUpgradeable.Pauses",
-                                        ),
-                                    ),
-                                },
-                            ],
+                            inputs: ::std::vec![],
                         },
                     ],
                 ),
@@ -131,17 +101,7 @@ pub mod ion_pausable_upgradeable {
                     ::std::vec![
                         ::ethers::core::abi::ethabi::AbiError {
                             name: ::std::borrow::ToOwned::to_owned("ExpectedPause"),
-                            inputs: ::std::vec![
-                                ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("pauseIndex"),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(8usize),
-                                    internal_type: ::core::option::Option::Some(
-                                        ::std::borrow::ToOwned::to_owned(
-                                            "enum IonPausableUpgradeable.Pauses",
-                                        ),
-                                    ),
-                                },
-                            ],
+                            inputs: ::std::vec![],
                         },
                     ],
                 ),
@@ -171,34 +131,34 @@ pub mod ion_pausable_upgradeable {
         }
     }
     ///The parsed JSON ABI of the contract.
-    pub static IONPAUSABLEUPGRADEABLE_ABI: ::ethers::contract::Lazy<
+    pub static PAUSABLEUPGRADEABLE_ABI: ::ethers::contract::Lazy<
         ::ethers::core::abi::Abi,
     > = ::ethers::contract::Lazy::new(__abi);
-    pub struct IonPausableUpgradeable<M>(::ethers::contract::Contract<M>);
-    impl<M> ::core::clone::Clone for IonPausableUpgradeable<M> {
+    pub struct PausableUpgradeable<M>(::ethers::contract::Contract<M>);
+    impl<M> ::core::clone::Clone for PausableUpgradeable<M> {
         fn clone(&self) -> Self {
             Self(::core::clone::Clone::clone(&self.0))
         }
     }
-    impl<M> ::core::ops::Deref for IonPausableUpgradeable<M> {
+    impl<M> ::core::ops::Deref for PausableUpgradeable<M> {
         type Target = ::ethers::contract::Contract<M>;
         fn deref(&self) -> &Self::Target {
             &self.0
         }
     }
-    impl<M> ::core::ops::DerefMut for IonPausableUpgradeable<M> {
+    impl<M> ::core::ops::DerefMut for PausableUpgradeable<M> {
         fn deref_mut(&mut self) -> &mut Self::Target {
             &mut self.0
         }
     }
-    impl<M> ::core::fmt::Debug for IonPausableUpgradeable<M> {
+    impl<M> ::core::fmt::Debug for PausableUpgradeable<M> {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-            f.debug_tuple(::core::stringify!(IonPausableUpgradeable))
+            f.debug_tuple(::core::stringify!(PausableUpgradeable))
                 .field(&self.address())
                 .finish()
         }
     }
-    impl<M: ::ethers::providers::Middleware> IonPausableUpgradeable<M> {
+    impl<M: ::ethers::providers::Middleware> PausableUpgradeable<M> {
         /// Creates a new contract instance with the specified `ethers` client at
         /// `address`. The contract derefs to a `ethers::Contract` object.
         pub fn new<T: Into<::ethers::core::types::Address>>(
@@ -208,18 +168,15 @@ pub mod ion_pausable_upgradeable {
             Self(
                 ::ethers::contract::Contract::new(
                     address.into(),
-                    IONPAUSABLEUPGRADEABLE_ABI.clone(),
+                    PAUSABLEUPGRADEABLE_ABI.clone(),
                     client,
                 ),
             )
         }
-        ///Calls the contract's `paused` (0x5ac86ab7) function
-        pub fn paused(
-            &self,
-            pause_index: u8,
-        ) -> ::ethers::contract::builders::ContractCall<M, bool> {
+        ///Calls the contract's `paused` (0x5c975abb) function
+        pub fn paused(&self) -> ::ethers::contract::builders::ContractCall<M, bool> {
             self.0
-                .method_hash([90, 200, 106, 183], pause_index)
+                .method_hash([92, 151, 90, 187], ())
                 .expect("method not found (this should never happen)")
         }
         ///Gets the contract's `Initialized` event
@@ -254,18 +211,18 @@ pub mod ion_pausable_upgradeable {
         ) -> ::ethers::contract::builders::Event<
             ::std::sync::Arc<M>,
             M,
-            IonPausableUpgradeableEvents,
+            PausableUpgradeableEvents,
         > {
             self.0.event_with_filter(::core::default::Default::default())
         }
     }
     impl<M: ::ethers::providers::Middleware> From<::ethers::contract::Contract<M>>
-    for IonPausableUpgradeable<M> {
+    for PausableUpgradeable<M> {
         fn from(contract: ::ethers::contract::Contract<M>) -> Self {
             Self::new(contract.address(), contract.client())
         }
     }
-    ///Custom Error type `EnforcedPause` with signature `EnforcedPause(uint8)` and selector `0xd5804b92`
+    ///Custom Error type `EnforcedPause` with signature `EnforcedPause()` and selector `0xd93c0665`
     #[derive(
         Clone,
         ::ethers::contract::EthError,
@@ -278,11 +235,9 @@ pub mod ion_pausable_upgradeable {
         Eq,
         Hash
     )]
-    #[etherror(name = "EnforcedPause", abi = "EnforcedPause(uint8)")]
-    pub struct EnforcedPause {
-        pub pause_index: u8,
-    }
-    ///Custom Error type `ExpectedPause` with signature `ExpectedPause(uint8)` and selector `0xe2d694c3`
+    #[etherror(name = "EnforcedPause", abi = "EnforcedPause()")]
+    pub struct EnforcedPause;
+    ///Custom Error type `ExpectedPause` with signature `ExpectedPause()` and selector `0x8dfc202b`
     #[derive(
         Clone,
         ::ethers::contract::EthError,
@@ -295,10 +250,8 @@ pub mod ion_pausable_upgradeable {
         Eq,
         Hash
     )]
-    #[etherror(name = "ExpectedPause", abi = "ExpectedPause(uint8)")]
-    pub struct ExpectedPause {
-        pub pause_index: u8,
-    }
+    #[etherror(name = "ExpectedPause", abi = "ExpectedPause()")]
+    pub struct ExpectedPause;
     ///Custom Error type `InvalidInitialization` with signature `InvalidInitialization()` and selector `0xf92ee8a9`
     #[derive(
         Clone,
@@ -340,7 +293,7 @@ pub mod ion_pausable_upgradeable {
         Eq,
         Hash
     )]
-    pub enum IonPausableUpgradeableErrors {
+    pub enum PausableUpgradeableErrors {
         EnforcedPause(EnforcedPause),
         ExpectedPause(ExpectedPause),
         InvalidInitialization(InvalidInitialization),
@@ -349,7 +302,7 @@ pub mod ion_pausable_upgradeable {
         /// Error(string) -- 0x08c379a0
         RevertString(::std::string::String),
     }
-    impl ::ethers::core::abi::AbiDecode for IonPausableUpgradeableErrors {
+    impl ::ethers::core::abi::AbiDecode for PausableUpgradeableErrors {
         fn decode(
             data: impl AsRef<[u8]>,
         ) -> ::core::result::Result<Self, ::ethers::core::abi::AbiError> {
@@ -382,7 +335,7 @@ pub mod ion_pausable_upgradeable {
             Err(::ethers::core::abi::Error::InvalidData.into())
         }
     }
-    impl ::ethers::core::abi::AbiEncode for IonPausableUpgradeableErrors {
+    impl ::ethers::core::abi::AbiEncode for PausableUpgradeableErrors {
         fn encode(self) -> ::std::vec::Vec<u8> {
             match self {
                 Self::EnforcedPause(element) => {
@@ -401,7 +354,7 @@ pub mod ion_pausable_upgradeable {
             }
         }
     }
-    impl ::ethers::contract::ContractRevert for IonPausableUpgradeableErrors {
+    impl ::ethers::contract::ContractRevert for PausableUpgradeableErrors {
         fn valid_selector(selector: [u8; 4]) -> bool {
             match selector {
                 [0x08, 0xc3, 0x79, 0xa0] => true,
@@ -425,7 +378,7 @@ pub mod ion_pausable_upgradeable {
             }
         }
     }
-    impl ::core::fmt::Display for IonPausableUpgradeableErrors {
+    impl ::core::fmt::Display for PausableUpgradeableErrors {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
             match self {
                 Self::EnforcedPause(element) => ::core::fmt::Display::fmt(element, f),
@@ -438,27 +391,27 @@ pub mod ion_pausable_upgradeable {
             }
         }
     }
-    impl ::core::convert::From<::std::string::String> for IonPausableUpgradeableErrors {
+    impl ::core::convert::From<::std::string::String> for PausableUpgradeableErrors {
         fn from(value: String) -> Self {
             Self::RevertString(value)
         }
     }
-    impl ::core::convert::From<EnforcedPause> for IonPausableUpgradeableErrors {
+    impl ::core::convert::From<EnforcedPause> for PausableUpgradeableErrors {
         fn from(value: EnforcedPause) -> Self {
             Self::EnforcedPause(value)
         }
     }
-    impl ::core::convert::From<ExpectedPause> for IonPausableUpgradeableErrors {
+    impl ::core::convert::From<ExpectedPause> for PausableUpgradeableErrors {
         fn from(value: ExpectedPause) -> Self {
             Self::ExpectedPause(value)
         }
     }
-    impl ::core::convert::From<InvalidInitialization> for IonPausableUpgradeableErrors {
+    impl ::core::convert::From<InvalidInitialization> for PausableUpgradeableErrors {
         fn from(value: InvalidInitialization) -> Self {
             Self::InvalidInitialization(value)
         }
     }
-    impl ::core::convert::From<NotInitializing> for IonPausableUpgradeableErrors {
+    impl ::core::convert::From<NotInitializing> for PausableUpgradeableErrors {
         fn from(value: NotInitializing) -> Self {
             Self::NotInitializing(value)
         }
@@ -491,10 +444,8 @@ pub mod ion_pausable_upgradeable {
         Eq,
         Hash
     )]
-    #[ethevent(name = "Paused", abi = "Paused(uint8,address)")]
+    #[ethevent(name = "Paused", abi = "Paused(address)")]
     pub struct PausedFilter {
-        #[ethevent(indexed)]
-        pub pause_index: u8,
         pub account: ::ethers::core::types::Address,
     }
     #[derive(
@@ -509,10 +460,8 @@ pub mod ion_pausable_upgradeable {
         Eq,
         Hash
     )]
-    #[ethevent(name = "Unpaused", abi = "Unpaused(uint8,address)")]
+    #[ethevent(name = "Unpaused", abi = "Unpaused(address)")]
     pub struct UnpausedFilter {
-        #[ethevent(indexed)]
-        pub pause_index: u8,
         pub account: ::ethers::core::types::Address,
     }
     ///Container type for all of the contract's events
@@ -526,28 +475,28 @@ pub mod ion_pausable_upgradeable {
         Eq,
         Hash
     )]
-    pub enum IonPausableUpgradeableEvents {
+    pub enum PausableUpgradeableEvents {
         InitializedFilter(InitializedFilter),
         PausedFilter(PausedFilter),
         UnpausedFilter(UnpausedFilter),
     }
-    impl ::ethers::contract::EthLogDecode for IonPausableUpgradeableEvents {
+    impl ::ethers::contract::EthLogDecode for PausableUpgradeableEvents {
         fn decode_log(
             log: &::ethers::core::abi::RawLog,
         ) -> ::core::result::Result<Self, ::ethers::core::abi::Error> {
             if let Ok(decoded) = InitializedFilter::decode_log(log) {
-                return Ok(IonPausableUpgradeableEvents::InitializedFilter(decoded));
+                return Ok(PausableUpgradeableEvents::InitializedFilter(decoded));
             }
             if let Ok(decoded) = PausedFilter::decode_log(log) {
-                return Ok(IonPausableUpgradeableEvents::PausedFilter(decoded));
+                return Ok(PausableUpgradeableEvents::PausedFilter(decoded));
             }
             if let Ok(decoded) = UnpausedFilter::decode_log(log) {
-                return Ok(IonPausableUpgradeableEvents::UnpausedFilter(decoded));
+                return Ok(PausableUpgradeableEvents::UnpausedFilter(decoded));
             }
             Err(::ethers::core::abi::Error::InvalidData)
         }
     }
-    impl ::core::fmt::Display for IonPausableUpgradeableEvents {
+    impl ::core::fmt::Display for PausableUpgradeableEvents {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
             match self {
                 Self::InitializedFilter(element) => ::core::fmt::Display::fmt(element, f),
@@ -556,22 +505,22 @@ pub mod ion_pausable_upgradeable {
             }
         }
     }
-    impl ::core::convert::From<InitializedFilter> for IonPausableUpgradeableEvents {
+    impl ::core::convert::From<InitializedFilter> for PausableUpgradeableEvents {
         fn from(value: InitializedFilter) -> Self {
             Self::InitializedFilter(value)
         }
     }
-    impl ::core::convert::From<PausedFilter> for IonPausableUpgradeableEvents {
+    impl ::core::convert::From<PausedFilter> for PausableUpgradeableEvents {
         fn from(value: PausedFilter) -> Self {
             Self::PausedFilter(value)
         }
     }
-    impl ::core::convert::From<UnpausedFilter> for IonPausableUpgradeableEvents {
+    impl ::core::convert::From<UnpausedFilter> for PausableUpgradeableEvents {
         fn from(value: UnpausedFilter) -> Self {
             Self::UnpausedFilter(value)
         }
     }
-    ///Container type for all input parameters for the `paused` function with signature `paused(uint8)` and selector `0x5ac86ab7`
+    ///Container type for all input parameters for the `paused` function with signature `paused()` and selector `0x5c975abb`
     #[derive(
         Clone,
         ::ethers::contract::EthCall,
@@ -584,11 +533,9 @@ pub mod ion_pausable_upgradeable {
         Eq,
         Hash
     )]
-    #[ethcall(name = "paused", abi = "paused(uint8)")]
-    pub struct PausedCall {
-        pub pause_index: u8,
-    }
-    ///Container type for all return fields from the `paused` function with signature `paused(uint8)` and selector `0x5ac86ab7`
+    #[ethcall(name = "paused", abi = "paused()")]
+    pub struct PausedCall;
+    ///Container type for all return fields from the `paused` function with signature `paused()` and selector `0x5c975abb`
     #[derive(
         Clone,
         ::ethers::contract::EthAbiType,

@@ -38,13 +38,13 @@ pub mod math {
         __abi,
     );
     #[rustfmt::skip]
-    const __BYTECODE: &[u8] = b"`V`P`\x0B\x82\x82\x829\x80Q`\0\x1A`s\x14`CW\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0`\0R`\0`\x04R`$`\0\xFD[0`\0R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R`\0\x80\xFD\xFE\xA2dipfsX\"\x12 \x94\xDB\xC6\x14\x90)2\xE8\xE6\x19\xAC\x11\x07 \xA3\x03\x0B\xC9W\x7F_\xFC7\xF1\xB6\xC7\xA8T\x12\xAF\x13\"dsolcC\0\x08\x15\x003";
+    const __BYTECODE: &[u8] = b"`U`K`\x0B\x82\x82\x829\x80Q_\x1A`s\x14`?W\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0_R_`\x04R`$_\xFD[0_R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 \xD3\x8A\xACD\x93\x14\xE7\xD9\x10\x1C\xBBO\x9B\xA1\xD3\x15lT!\xFF\xE2\xFC\x0C\x11\xCB\x0C\xAEt\xC2\xD1\x93\xD0dsolcC\0\x08\x15\x003";
     /// The bytecode of the contract.
     pub static MATH_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __BYTECODE,
     );
     #[rustfmt::skip]
-    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R`\0\x80\xFD\xFE\xA2dipfsX\"\x12 \x94\xDB\xC6\x14\x90)2\xE8\xE6\x19\xAC\x11\x07 \xA3\x03\x0B\xC9W\x7F_\xFC7\xF1\xB6\xC7\xA8T\x12\xAF\x13\"dsolcC\0\x08\x15\x003";
+    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 \xD3\x8A\xACD\x93\x14\xE7\xD9\x10\x1C\xBBO\x9B\xA1\xD3\x15lT!\xFF\xE2\xFC\x0C\x11\xCB\x0C\xAEt\xC2\xD1\x93\xD0dsolcC\0\x08\x15\x003";
     /// The deployed bytecode of the contract.
     pub static MATH_DEPLOYED_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __DEPLOYED_BYTECODE,

@@ -126,6 +126,78 @@ pub mod reward_module {
                     ],
                 ),
                 (
+                    ::std::borrow::ToOwned::to_owned(
+                        "calculateRewardAndDebtDistribution",
+                    ),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::Function {
+                            name: ::std::borrow::ToOwned::to_owned(
+                                "calculateRewardAndDebtDistribution",
+                            ),
+                            inputs: ::std::vec![],
+                            outputs: ::std::vec![
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned(
+                                        "totalSupplyFactorIncrease",
+                                    ),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned(
+                                        "totalTreasuryMintAmount",
+                                    ),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned("rateIncreases"),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Array(
+                                        ::std::boxed::Box::new(
+                                            ::ethers::core::abi::ethabi::ParamType::Uint(104usize),
+                                        ),
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint104[]"),
+                                    ),
+                                },
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned("totalDebtIncrease"),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::borrow::ToOwned::to_owned(
+                                        "timestampIncreases",
+                                    ),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Array(
+                                        ::std::boxed::Box::new(
+                                            ::ethers::core::abi::ethabi::ParamType::Uint(48usize),
+                                        ),
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint48[]"),
+                                    ),
+                                },
+                            ],
+                            constant: ::core::option::Option::None,
+                            state_mutability: ::ethers::core::abi::ethabi::StateMutability::View,
+                        },
+                    ],
+                ),
+                (
                     ::std::borrow::ToOwned::to_owned("cancelDefaultAdminTransfer"),
                     ::std::vec![
                         ::ethers::core::abi::ethabi::Function {
@@ -418,6 +490,30 @@ pub mod reward_module {
                     ],
                 ),
                 (
+                    ::std::borrow::ToOwned::to_owned("normalizedTotalSupplyUnaccrued"),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::Function {
+                            name: ::std::borrow::ToOwned::to_owned(
+                                "normalizedTotalSupplyUnaccrued",
+                            ),
+                            inputs: ::std::vec![],
+                            outputs: ::std::vec![
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::string::String::new(),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                            ],
+                            constant: ::core::option::Option::None,
+                            state_mutability: ::ethers::core::abi::ethabi::StateMutability::View,
+                        },
+                    ],
+                ),
+                (
                     ::std::borrow::ToOwned::to_owned("owner"),
                     ::std::vec![
                         ::ethers::core::abi::ethabi::Function {
@@ -590,6 +686,30 @@ pub mod reward_module {
                     ],
                 ),
                 (
+                    ::std::borrow::ToOwned::to_owned("supplyFactorUnaccrued"),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::Function {
+                            name: ::std::borrow::ToOwned::to_owned(
+                                "supplyFactorUnaccrued",
+                            ),
+                            inputs: ::std::vec![],
+                            outputs: ::std::vec![
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::string::String::new(),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                            ],
+                            constant: ::core::option::Option::None,
+                            state_mutability: ::ethers::core::abi::ethabi::StateMutability::View,
+                        },
+                    ],
+                ),
+                (
                     ::std::borrow::ToOwned::to_owned("supportsInterface"),
                     ::std::vec![
                         ::ethers::core::abi::ethabi::Function {
@@ -644,6 +764,30 @@ pub mod reward_module {
                     ::std::vec![
                         ::ethers::core::abi::ethabi::Function {
                             name: ::std::borrow::ToOwned::to_owned("totalSupply"),
+                            inputs: ::std::vec![],
+                            outputs: ::std::vec![
+                                ::ethers::core::abi::ethabi::Param {
+                                    name: ::std::string::String::new(),
+                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
+                                        256usize,
+                                    ),
+                                    internal_type: ::core::option::Option::Some(
+                                        ::std::borrow::ToOwned::to_owned("uint256"),
+                                    ),
+                                },
+                            ],
+                            constant: ::core::option::Option::None,
+                            state_mutability: ::ethers::core::abi::ethabi::StateMutability::View,
+                        },
+                    ],
+                ),
+                (
+                    ::std::borrow::ToOwned::to_owned("totalSupplyUnaccrued"),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::Function {
+                            name: ::std::borrow::ToOwned::to_owned(
+                                "totalSupplyUnaccrued",
+                            ),
                             inputs: ::std::vec![],
                             outputs: ::std::vec![
                                 ::ethers::core::abi::ethabi::Param {
@@ -1074,7 +1218,7 @@ pub mod reward_module {
                             ),
                             inputs: ::std::vec![
                                 ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("sender"),
+                                    name: ::std::borrow::ToOwned::to_owned("account"),
                                     kind: ::ethers::core::abi::ethabi::ParamType::Address,
                                     internal_type: ::core::option::Option::Some(
                                         ::std::borrow::ToOwned::to_owned("address"),
@@ -1323,6 +1467,23 @@ pub mod reward_module {
                 .method_hash([99, 78, 147, 218], new_admin)
                 .expect("method not found (this should never happen)")
         }
+        ///Calls the contract's `calculateRewardAndDebtDistribution` (0x7886fe2f) function
+        pub fn calculate_reward_and_debt_distribution(
+            &self,
+        ) -> ::ethers::contract::builders::ContractCall<
+            M,
+            (
+                ::ethers::core::types::U256,
+                ::ethers::core::types::U256,
+                ::std::vec::Vec<u128>,
+                ::ethers::core::types::U256,
+                ::std::vec::Vec<u64>,
+            ),
+        > {
+            self.0
+                .method_hash([120, 134, 254, 47], ())
+                .expect("method not found (this should never happen)")
+        }
         ///Calls the contract's `cancelDefaultAdminTransfer` (0xd602b9fd) function
         pub fn cancel_default_admin_transfer(
             &self,
@@ -1427,6 +1588,14 @@ pub mod reward_module {
                 .method_hash([184, 94, 134, 142], ())
                 .expect("method not found (this should never happen)")
         }
+        ///Calls the contract's `normalizedTotalSupplyUnaccrued` (0xf09b808d) function
+        pub fn normalized_total_supply_unaccrued(
+            &self,
+        ) -> ::ethers::contract::builders::ContractCall<M, ::ethers::core::types::U256> {
+            self.0
+                .method_hash([240, 155, 128, 141], ())
+                .expect("method not found (this should never happen)")
+        }
         ///Calls the contract's `owner` (0x8da5cb5b) function
         pub fn owner(
             &self,
@@ -1493,6 +1662,14 @@ pub mod reward_module {
                 .method_hash([7, 10, 150, 69], ())
                 .expect("method not found (this should never happen)")
         }
+        ///Calls the contract's `supplyFactorUnaccrued` (0xc358b49a) function
+        pub fn supply_factor_unaccrued(
+            &self,
+        ) -> ::ethers::contract::builders::ContractCall<M, ::ethers::core::types::U256> {
+            self.0
+                .method_hash([195, 88, 180, 154], ())
+                .expect("method not found (this should never happen)")
+        }
         ///Calls the contract's `supportsInterface` (0x01ffc9a7) function
         pub fn supports_interface(
             &self,
@@ -1516,6 +1693,14 @@ pub mod reward_module {
         ) -> ::ethers::contract::builders::ContractCall<M, ::ethers::core::types::U256> {
             self.0
                 .method_hash([24, 22, 13, 221], ())
+                .expect("method not found (this should never happen)")
+        }
+        ///Calls the contract's `totalSupplyUnaccrued` (0x1059c533) function
+        pub fn total_supply_unaccrued(
+            &self,
+        ) -> ::ethers::contract::builders::ContractCall<M, ::ethers::core::types::U256> {
+            self.0
+                .method_hash([16, 89, 197, 51], ())
                 .expect("method not found (this should never happen)")
         }
         ///Calls the contract's `treasury` (0x61d027b3) function
@@ -1791,7 +1976,7 @@ pub mod reward_module {
         abi = "InsufficientBalance(address,uint256,uint256)"
     )]
     pub struct InsufficientBalance {
-        pub sender: ::ethers::core::types::Address,
+        pub account: ::ethers::core::types::Address,
         pub balance: ::ethers::core::types::U256,
         pub needed: ::ethers::core::types::U256,
     }
@@ -2797,6 +2982,24 @@ pub mod reward_module {
     pub struct BeginDefaultAdminTransferCall {
         pub new_admin: ::ethers::core::types::Address,
     }
+    ///Container type for all input parameters for the `calculateRewardAndDebtDistribution` function with signature `calculateRewardAndDebtDistribution()` and selector `0x7886fe2f`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthCall,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[ethcall(
+        name = "calculateRewardAndDebtDistribution",
+        abi = "calculateRewardAndDebtDistribution()"
+    )]
+    pub struct CalculateRewardAndDebtDistributionCall;
     ///Container type for all input parameters for the `cancelDefaultAdminTransfer` function with signature `cancelDefaultAdminTransfer()` and selector `0xd602b9fd`
     #[derive(
         Clone,
@@ -2992,6 +3195,24 @@ pub mod reward_module {
     )]
     #[ethcall(name = "normalizedTotalSupply", abi = "normalizedTotalSupply()")]
     pub struct NormalizedTotalSupplyCall;
+    ///Container type for all input parameters for the `normalizedTotalSupplyUnaccrued` function with signature `normalizedTotalSupplyUnaccrued()` and selector `0xf09b808d`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthCall,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[ethcall(
+        name = "normalizedTotalSupplyUnaccrued",
+        abi = "normalizedTotalSupplyUnaccrued()"
+    )]
+    pub struct NormalizedTotalSupplyUnaccruedCall;
     ///Container type for all input parameters for the `owner` function with signature `owner()` and selector `0x8da5cb5b`
     #[derive(
         Clone,
@@ -3103,6 +3324,21 @@ pub mod reward_module {
     )]
     #[ethcall(name = "supplyFactor", abi = "supplyFactor()")]
     pub struct SupplyFactorCall;
+    ///Container type for all input parameters for the `supplyFactorUnaccrued` function with signature `supplyFactorUnaccrued()` and selector `0xc358b49a`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthCall,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[ethcall(name = "supplyFactorUnaccrued", abi = "supplyFactorUnaccrued()")]
+    pub struct SupplyFactorUnaccruedCall;
     ///Container type for all input parameters for the `supportsInterface` function with signature `supportsInterface(bytes4)` and selector `0x01ffc9a7`
     #[derive(
         Clone,
@@ -3150,6 +3386,21 @@ pub mod reward_module {
     )]
     #[ethcall(name = "totalSupply", abi = "totalSupply()")]
     pub struct TotalSupplyCall;
+    ///Container type for all input parameters for the `totalSupplyUnaccrued` function with signature `totalSupplyUnaccrued()` and selector `0x1059c533`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthCall,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[ethcall(name = "totalSupplyUnaccrued", abi = "totalSupplyUnaccrued()")]
+    pub struct TotalSupplyUnaccruedCall;
     ///Container type for all input parameters for the `treasury` function with signature `treasury()` and selector `0x61d027b3`
     #[derive(
         Clone,
@@ -3214,6 +3465,7 @@ pub mod reward_module {
         AcceptDefaultAdminTransfer(AcceptDefaultAdminTransferCall),
         BalanceOf(BalanceOfCall),
         BeginDefaultAdminTransfer(BeginDefaultAdminTransferCall),
+        CalculateRewardAndDebtDistribution(CalculateRewardAndDebtDistributionCall),
         CancelDefaultAdminTransfer(CancelDefaultAdminTransferCall),
         ChangeDefaultAdminDelay(ChangeDefaultAdminDelayCall),
         Decimals(DecimalsCall),
@@ -3226,6 +3478,7 @@ pub mod reward_module {
         Name(NameCall),
         NormalizedBalanceOf(NormalizedBalanceOfCall),
         NormalizedTotalSupply(NormalizedTotalSupplyCall),
+        NormalizedTotalSupplyUnaccrued(NormalizedTotalSupplyUnaccruedCall),
         Owner(OwnerCall),
         PendingDefaultAdmin(PendingDefaultAdminCall),
         PendingDefaultAdminDelay(PendingDefaultAdminDelayCall),
@@ -3233,9 +3486,11 @@ pub mod reward_module {
         RevokeRole(RevokeRoleCall),
         RollbackDefaultAdminDelay(RollbackDefaultAdminDelayCall),
         SupplyFactor(SupplyFactorCall),
+        SupplyFactorUnaccrued(SupplyFactorUnaccruedCall),
         SupportsInterface(SupportsInterfaceCall),
         Symbol(SymbolCall),
         TotalSupply(TotalSupplyCall),
+        TotalSupplyUnaccrued(TotalSupplyUnaccruedCall),
         Treasury(TreasuryCall),
         Underlying(UnderlyingCall),
         UpdateTreasury(UpdateTreasuryCall),
@@ -3269,6 +3524,11 @@ pub mod reward_module {
                 data,
             ) {
                 return Ok(Self::BeginDefaultAdminTransfer(decoded));
+            }
+            if let Ok(decoded) = <CalculateRewardAndDebtDistributionCall as ::ethers::core::abi::AbiDecode>::decode(
+                data,
+            ) {
+                return Ok(Self::CalculateRewardAndDebtDistribution(decoded));
             }
             if let Ok(decoded) = <CancelDefaultAdminTransferCall as ::ethers::core::abi::AbiDecode>::decode(
                 data,
@@ -3330,6 +3590,11 @@ pub mod reward_module {
             ) {
                 return Ok(Self::NormalizedTotalSupply(decoded));
             }
+            if let Ok(decoded) = <NormalizedTotalSupplyUnaccruedCall as ::ethers::core::abi::AbiDecode>::decode(
+                data,
+            ) {
+                return Ok(Self::NormalizedTotalSupplyUnaccrued(decoded));
+            }
             if let Ok(decoded) = <OwnerCall as ::ethers::core::abi::AbiDecode>::decode(
                 data,
             ) {
@@ -3365,6 +3630,11 @@ pub mod reward_module {
             ) {
                 return Ok(Self::SupplyFactor(decoded));
             }
+            if let Ok(decoded) = <SupplyFactorUnaccruedCall as ::ethers::core::abi::AbiDecode>::decode(
+                data,
+            ) {
+                return Ok(Self::SupplyFactorUnaccrued(decoded));
+            }
             if let Ok(decoded) = <SupportsInterfaceCall as ::ethers::core::abi::AbiDecode>::decode(
                 data,
             ) {
@@ -3379,6 +3649,11 @@ pub mod reward_module {
                 data,
             ) {
                 return Ok(Self::TotalSupply(decoded));
+            }
+            if let Ok(decoded) = <TotalSupplyUnaccruedCall as ::ethers::core::abi::AbiDecode>::decode(
+                data,
+            ) {
+                return Ok(Self::TotalSupplyUnaccrued(decoded));
             }
             if let Ok(decoded) = <TreasuryCall as ::ethers::core::abi::AbiDecode>::decode(
                 data,
@@ -3414,6 +3689,9 @@ pub mod reward_module {
                 Self::BeginDefaultAdminTransfer(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
+                Self::CalculateRewardAndDebtDistribution(element) => {
+                    ::ethers::core::abi::AbiEncode::encode(element)
+                }
                 Self::CancelDefaultAdminTransfer(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
@@ -3446,6 +3724,9 @@ pub mod reward_module {
                 Self::NormalizedTotalSupply(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
+                Self::NormalizedTotalSupplyUnaccrued(element) => {
+                    ::ethers::core::abi::AbiEncode::encode(element)
+                }
                 Self::Owner(element) => ::ethers::core::abi::AbiEncode::encode(element),
                 Self::PendingDefaultAdmin(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
@@ -3465,11 +3746,17 @@ pub mod reward_module {
                 Self::SupplyFactor(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
+                Self::SupplyFactorUnaccrued(element) => {
+                    ::ethers::core::abi::AbiEncode::encode(element)
+                }
                 Self::SupportsInterface(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
                 Self::Symbol(element) => ::ethers::core::abi::AbiEncode::encode(element),
                 Self::TotalSupply(element) => {
+                    ::ethers::core::abi::AbiEncode::encode(element)
+                }
+                Self::TotalSupplyUnaccrued(element) => {
                     ::ethers::core::abi::AbiEncode::encode(element)
                 }
                 Self::Treasury(element) => {
@@ -3496,6 +3783,9 @@ pub mod reward_module {
                 Self::BeginDefaultAdminTransfer(element) => {
                     ::core::fmt::Display::fmt(element, f)
                 }
+                Self::CalculateRewardAndDebtDistribution(element) => {
+                    ::core::fmt::Display::fmt(element, f)
+                }
                 Self::CancelDefaultAdminTransfer(element) => {
                     ::core::fmt::Display::fmt(element, f)
                 }
@@ -3518,6 +3808,9 @@ pub mod reward_module {
                 Self::NormalizedTotalSupply(element) => {
                     ::core::fmt::Display::fmt(element, f)
                 }
+                Self::NormalizedTotalSupplyUnaccrued(element) => {
+                    ::core::fmt::Display::fmt(element, f)
+                }
                 Self::Owner(element) => ::core::fmt::Display::fmt(element, f),
                 Self::PendingDefaultAdmin(element) => {
                     ::core::fmt::Display::fmt(element, f)
@@ -3531,9 +3824,15 @@ pub mod reward_module {
                     ::core::fmt::Display::fmt(element, f)
                 }
                 Self::SupplyFactor(element) => ::core::fmt::Display::fmt(element, f),
+                Self::SupplyFactorUnaccrued(element) => {
+                    ::core::fmt::Display::fmt(element, f)
+                }
                 Self::SupportsInterface(element) => ::core::fmt::Display::fmt(element, f),
                 Self::Symbol(element) => ::core::fmt::Display::fmt(element, f),
                 Self::TotalSupply(element) => ::core::fmt::Display::fmt(element, f),
+                Self::TotalSupplyUnaccrued(element) => {
+                    ::core::fmt::Display::fmt(element, f)
+                }
                 Self::Treasury(element) => ::core::fmt::Display::fmt(element, f),
                 Self::Underlying(element) => ::core::fmt::Display::fmt(element, f),
                 Self::UpdateTreasury(element) => ::core::fmt::Display::fmt(element, f),
@@ -3563,6 +3862,12 @@ pub mod reward_module {
     impl ::core::convert::From<BeginDefaultAdminTransferCall> for RewardModuleCalls {
         fn from(value: BeginDefaultAdminTransferCall) -> Self {
             Self::BeginDefaultAdminTransfer(value)
+        }
+    }
+    impl ::core::convert::From<CalculateRewardAndDebtDistributionCall>
+    for RewardModuleCalls {
+        fn from(value: CalculateRewardAndDebtDistributionCall) -> Self {
+            Self::CalculateRewardAndDebtDistribution(value)
         }
     }
     impl ::core::convert::From<CancelDefaultAdminTransferCall> for RewardModuleCalls {
@@ -3625,6 +3930,12 @@ pub mod reward_module {
             Self::NormalizedTotalSupply(value)
         }
     }
+    impl ::core::convert::From<NormalizedTotalSupplyUnaccruedCall>
+    for RewardModuleCalls {
+        fn from(value: NormalizedTotalSupplyUnaccruedCall) -> Self {
+            Self::NormalizedTotalSupplyUnaccrued(value)
+        }
+    }
     impl ::core::convert::From<OwnerCall> for RewardModuleCalls {
         fn from(value: OwnerCall) -> Self {
             Self::Owner(value)
@@ -3660,6 +3971,11 @@ pub mod reward_module {
             Self::SupplyFactor(value)
         }
     }
+    impl ::core::convert::From<SupplyFactorUnaccruedCall> for RewardModuleCalls {
+        fn from(value: SupplyFactorUnaccruedCall) -> Self {
+            Self::SupplyFactorUnaccrued(value)
+        }
+    }
     impl ::core::convert::From<SupportsInterfaceCall> for RewardModuleCalls {
         fn from(value: SupportsInterfaceCall) -> Self {
             Self::SupportsInterface(value)
@@ -3673,6 +3989,11 @@ pub mod reward_module {
     impl ::core::convert::From<TotalSupplyCall> for RewardModuleCalls {
         fn from(value: TotalSupplyCall) -> Self {
             Self::TotalSupply(value)
+        }
+    }
+    impl ::core::convert::From<TotalSupplyUnaccruedCall> for RewardModuleCalls {
+        fn from(value: TotalSupplyUnaccruedCall) -> Self {
+            Self::TotalSupplyUnaccrued(value)
         }
     }
     impl ::core::convert::From<TreasuryCall> for RewardModuleCalls {
@@ -3732,6 +4053,26 @@ pub mod reward_module {
         Hash
     )]
     pub struct BalanceOfReturn(pub ::ethers::core::types::U256);
+    ///Container type for all return fields from the `calculateRewardAndDebtDistribution` function with signature `calculateRewardAndDebtDistribution()` and selector `0x7886fe2f`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthAbiType,
+        ::ethers::contract::EthAbiCodec,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    pub struct CalculateRewardAndDebtDistributionReturn {
+        pub total_supply_factor_increase: ::ethers::core::types::U256,
+        pub total_treasury_mint_amount: ::ethers::core::types::U256,
+        pub rate_increases: ::std::vec::Vec<u128>,
+        pub total_debt_increase: ::ethers::core::types::U256,
+        pub timestamp_increases: ::std::vec::Vec<u64>,
+    }
     ///Container type for all return fields from the `decimals` function with signature `decimals()` and selector `0x313ce567`
     #[derive(
         Clone,
@@ -3858,6 +4199,20 @@ pub mod reward_module {
         Hash
     )]
     pub struct NormalizedTotalSupplyReturn(pub ::ethers::core::types::U256);
+    ///Container type for all return fields from the `normalizedTotalSupplyUnaccrued` function with signature `normalizedTotalSupplyUnaccrued()` and selector `0xf09b808d`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthAbiType,
+        ::ethers::contract::EthAbiCodec,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    pub struct NormalizedTotalSupplyUnaccruedReturn(pub ::ethers::core::types::U256);
     ///Container type for all return fields from the `owner` function with signature `owner()` and selector `0x8da5cb5b`
     #[derive(
         Clone,
@@ -3920,6 +4275,20 @@ pub mod reward_module {
         Hash
     )]
     pub struct SupplyFactorReturn(pub ::ethers::core::types::U256);
+    ///Container type for all return fields from the `supplyFactorUnaccrued` function with signature `supplyFactorUnaccrued()` and selector `0xc358b49a`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthAbiType,
+        ::ethers::contract::EthAbiCodec,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    pub struct SupplyFactorUnaccruedReturn(pub ::ethers::core::types::U256);
     ///Container type for all return fields from the `supportsInterface` function with signature `supportsInterface(bytes4)` and selector `0x01ffc9a7`
     #[derive(
         Clone,
@@ -3962,6 +4331,20 @@ pub mod reward_module {
         Hash
     )]
     pub struct TotalSupplyReturn(pub ::ethers::core::types::U256);
+    ///Container type for all return fields from the `totalSupplyUnaccrued` function with signature `totalSupplyUnaccrued()` and selector `0x1059c533`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthAbiType,
+        ::ethers::contract::EthAbiCodec,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    pub struct TotalSupplyUnaccruedReturn(pub ::ethers::core::types::U256);
     ///Container type for all return fields from the `treasury` function with signature `treasury()` and selector `0x61d027b3`
     #[derive(
         Clone,

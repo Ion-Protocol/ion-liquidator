@@ -26,13 +26,13 @@ pub mod stader_library {
         __abi,
     );
     #[rustfmt::skip]
-    const __BYTECODE: &[u8] = b"`V`P`\x0B\x82\x82\x829\x80Q`\0\x1A`s\x14`CW\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0`\0R`\0`\x04R`$`\0\xFD[0`\0R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R`\0\x80\xFD\xFE\xA2dipfsX\"\x12 \x89\xE5Nf\xA6up\r\xEB}\x8D\x19LdK\x11\xB6\x1C\x1A\xA8zZr\xFF\xFB\xD9\x19\xE9\xA1\xC8Z\\dsolcC\0\x08\x15\x003";
+    const __BYTECODE: &[u8] = b"`U`K`\x0B\x82\x82\x829\x80Q_\x1A`s\x14`?W\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0_R_`\x04R`$_\xFD[0_R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 P\xCEz\xEC\xA5\xE9n\xA2\x9C\x86\x7F\x90O]\xE9\xA9\xCB\xADPy\x9D\xB8}F\xA2\x99 \xF1\r>\xE8\xAEdsolcC\0\x08\x15\x003";
     /// The bytecode of the contract.
     pub static STADERLIBRARY_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __BYTECODE,
     );
     #[rustfmt::skip]
-    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R`\0\x80\xFD\xFE\xA2dipfsX\"\x12 \x89\xE5Nf\xA6up\r\xEB}\x8D\x19LdK\x11\xB6\x1C\x1A\xA8zZr\xFF\xFB\xD9\x19\xE9\xA1\xC8Z\\dsolcC\0\x08\x15\x003";
+    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 P\xCEz\xEC\xA5\xE9n\xA2\x9C\x86\x7F\x90O]\xE9\xA9\xCB\xADPy\x9D\xB8}F\xA2\x99 \xF1\r>\xE8\xAEdsolcC\0\x08\x15\x003";
     /// The deployed bytecode of the contract.
     pub static STADERLIBRARY_DEPLOYED_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __DEPLOYED_BYTECODE,

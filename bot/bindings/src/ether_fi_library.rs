@@ -1,4 +1,4 @@
-pub use storage_slot::*;
+pub use ether_fi_library::*;
 /// This module was auto-generated with ethers-rs Abigen.
 /// More information at: <https://github.com/gakonst/ethers-rs>
 #[allow(
@@ -9,59 +9,69 @@ pub use storage_slot::*;
     dead_code,
     non_camel_case_types,
 )]
-pub mod storage_slot {
+pub mod ether_fi_library {
     #[allow(deprecated)]
     fn __abi() -> ::ethers::core::abi::Abi {
         ::ethers::core::abi::ethabi::Contract {
             constructor: ::core::option::Option::None,
             functions: ::std::collections::BTreeMap::new(),
             events: ::std::collections::BTreeMap::new(),
-            errors: ::std::collections::BTreeMap::new(),
+            errors: ::core::convert::From::from([
+                (
+                    ::std::borrow::ToOwned::to_owned("NoAmountInFound"),
+                    ::std::vec![
+                        ::ethers::core::abi::ethabi::AbiError {
+                            name: ::std::borrow::ToOwned::to_owned("NoAmountInFound"),
+                            inputs: ::std::vec![],
+                        },
+                    ],
+                ),
+            ]),
             receive: false,
             fallback: false,
         }
     }
     ///The parsed JSON ABI of the contract.
-    pub static STORAGESLOT_ABI: ::ethers::contract::Lazy<::ethers::core::abi::Abi> = ::ethers::contract::Lazy::new(
+    pub static ETHERFILIBRARY_ABI: ::ethers::contract::Lazy<::ethers::core::abi::Abi> = ::ethers::contract::Lazy::new(
         __abi,
     );
     #[rustfmt::skip]
-    const __BYTECODE: &[u8] = b"`U`K`\x0B\x82\x82\x829\x80Q_\x1A`s\x14`?W\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0_R_`\x04R`$_\xFD[0_R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 \x0E\x06\x80\xEE{\xA9\xA7\xF2B\xFF\xAC\xB7\x1B\x06V\xB3\x90\x8A\xB9dw\xAC\xEF1\xDB\x11\x12\xAF\xFBY\xD6\xA1dsolcC\0\x08\x15\x003";
+    const __BYTECODE: &[u8] = b"`U`K`\x0B\x82\x82\x829\x80Q_\x1A`s\x14`?W\x7FNH{q\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0_R_`\x04R`$_\xFD[0_R`s\x81S\x82\x81\xF3\xFEs\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 \x85\x96\x1E\x10H\xBDB:\x97\x1E\xC8\x9E\xA8e:\x14n\0\x8Ep\tVd\x0B\x9B\xBB\xEA\x03x\xAB\xA5\x14dsolcC\0\x08\x15\x003";
     /// The bytecode of the contract.
-    pub static STORAGESLOT_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
+    pub static ETHERFILIBRARY_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __BYTECODE,
     );
     #[rustfmt::skip]
-    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 \x0E\x06\x80\xEE{\xA9\xA7\xF2B\xFF\xAC\xB7\x1B\x06V\xB3\x90\x8A\xB9dw\xAC\xEF1\xDB\x11\x12\xAF\xFBY\xD6\xA1dsolcC\0\x08\x15\x003";
+    const __DEPLOYED_BYTECODE: &[u8] = b"s\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\x000\x14`\x80`@R_\x80\xFD\xFE\xA2dipfsX\"\x12 \x85\x96\x1E\x10H\xBDB:\x97\x1E\xC8\x9E\xA8e:\x14n\0\x8Ep\tVd\x0B\x9B\xBB\xEA\x03x\xAB\xA5\x14dsolcC\0\x08\x15\x003";
     /// The deployed bytecode of the contract.
-    pub static STORAGESLOT_DEPLOYED_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
+    pub static ETHERFILIBRARY_DEPLOYED_BYTECODE: ::ethers::core::types::Bytes = ::ethers::core::types::Bytes::from_static(
         __DEPLOYED_BYTECODE,
     );
-    pub struct StorageSlot<M>(::ethers::contract::Contract<M>);
-    impl<M> ::core::clone::Clone for StorageSlot<M> {
+    pub struct EtherFiLibrary<M>(::ethers::contract::Contract<M>);
+    impl<M> ::core::clone::Clone for EtherFiLibrary<M> {
         fn clone(&self) -> Self {
             Self(::core::clone::Clone::clone(&self.0))
         }
     }
-    impl<M> ::core::ops::Deref for StorageSlot<M> {
+    impl<M> ::core::ops::Deref for EtherFiLibrary<M> {
         type Target = ::ethers::contract::Contract<M>;
         fn deref(&self) -> &Self::Target {
             &self.0
         }
     }
-    impl<M> ::core::ops::DerefMut for StorageSlot<M> {
+    impl<M> ::core::ops::DerefMut for EtherFiLibrary<M> {
         fn deref_mut(&mut self) -> &mut Self::Target {
             &mut self.0
         }
     }
-    impl<M> ::core::fmt::Debug for StorageSlot<M> {
+    impl<M> ::core::fmt::Debug for EtherFiLibrary<M> {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-            f.debug_tuple(::core::stringify!(StorageSlot))
+            f.debug_tuple(::core::stringify!(EtherFiLibrary))
                 .field(&self.address())
                 .finish()
         }
     }
-    impl<M: ::ethers::providers::Middleware> StorageSlot<M> {
+    impl<M: ::ethers::providers::Middleware> EtherFiLibrary<M> {
         /// Creates a new contract instance with the specified `ethers` client at
         /// `address`. The contract derefs to a `ethers::Contract` object.
         pub fn new<T: Into<::ethers::core::types::Address>>(
@@ -71,7 +81,7 @@ pub mod storage_slot {
             Self(
                 ::ethers::contract::Contract::new(
                     address.into(),
-                    STORAGESLOT_ABI.clone(),
+                    ETHERFILIBRARY_ABI.clone(),
                     client,
                 ),
             )
@@ -107,8 +117,8 @@ pub mod storage_slot {
             ::ethers::contract::ContractError<M>,
         > {
             let factory = ::ethers::contract::ContractFactory::new(
-                STORAGESLOT_ABI.clone(),
-                STORAGESLOT_BYTECODE.clone().into(),
+                ETHERFILIBRARY_ABI.clone(),
+                ETHERFILIBRARY_BYTECODE.clone().into(),
                 client,
             );
             let deployer = factory.deploy(constructor_args)?;
@@ -117,9 +127,24 @@ pub mod storage_slot {
         }
     }
     impl<M: ::ethers::providers::Middleware> From<::ethers::contract::Contract<M>>
-    for StorageSlot<M> {
+    for EtherFiLibrary<M> {
         fn from(contract: ::ethers::contract::Contract<M>) -> Self {
             Self::new(contract.address(), contract.client())
         }
     }
+    ///Custom Error type `NoAmountInFound` with signature `NoAmountInFound()` and selector `0x5f8d226c`
+    #[derive(
+        Clone,
+        ::ethers::contract::EthError,
+        ::ethers::contract::EthDisplay,
+        serde::Serialize,
+        serde::Deserialize,
+        Default,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash
+    )]
+    #[etherror(name = "NoAmountInFound", abi = "NoAmountInFound()")]
+    pub struct NoAmountInFound;
 }

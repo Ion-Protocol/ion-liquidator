@@ -1,4 +1,4 @@
-pub use liquidator_fork_shared_setup::*;
+pub use we_eth_ion_pool_shared_setup::*;
 /// This module was auto-generated with ethers-rs Abigen.
 /// More information at: <https://github.com/gakonst/ethers-rs>
 #[allow(
@@ -9,7 +9,7 @@ pub use liquidator_fork_shared_setup::*;
     dead_code,
     non_camel_case_types,
 )]
-pub mod liquidator_fork_shared_setup {
+pub mod we_eth_ion_pool_shared_setup {
     pub use super::super::shared_types::*;
     #[allow(deprecated)]
     fn __abi() -> ::ethers::core::abi::Abi {
@@ -859,99 +859,40 @@ pub mod liquidator_fork_shared_setup {
                     ],
                 ),
             ]),
-            errors: ::core::convert::From::from([
-                (
-                    ::std::borrow::ToOwned::to_owned("MathOverflowedMulDiv"),
-                    ::std::vec![
-                        ::ethers::core::abi::ethabi::AbiError {
-                            name: ::std::borrow::ToOwned::to_owned(
-                                "MathOverflowedMulDiv",
-                            ),
-                            inputs: ::std::vec![],
-                        },
-                    ],
-                ),
-                (
-                    ::std::borrow::ToOwned::to_owned("NotScalingUp"),
-                    ::std::vec![
-                        ::ethers::core::abi::ethabi::AbiError {
-                            name: ::std::borrow::ToOwned::to_owned("NotScalingUp"),
-                            inputs: ::std::vec![
-                                ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("from"),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
-                                        256usize,
-                                    ),
-                                    internal_type: ::core::option::Option::Some(
-                                        ::std::borrow::ToOwned::to_owned("uint256"),
-                                    ),
-                                },
-                                ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("to"),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Uint(
-                                        256usize,
-                                    ),
-                                    internal_type: ::core::option::Option::Some(
-                                        ::std::borrow::ToOwned::to_owned("uint256"),
-                                    ),
-                                },
-                            ],
-                        },
-                    ],
-                ),
-                (
-                    ::std::borrow::ToOwned::to_owned("SafeCastOverflowedIntToUint"),
-                    ::std::vec![
-                        ::ethers::core::abi::ethabi::AbiError {
-                            name: ::std::borrow::ToOwned::to_owned(
-                                "SafeCastOverflowedIntToUint",
-                            ),
-                            inputs: ::std::vec![
-                                ::ethers::core::abi::ethabi::Param {
-                                    name: ::std::borrow::ToOwned::to_owned("value"),
-                                    kind: ::ethers::core::abi::ethabi::ParamType::Int(256usize),
-                                    internal_type: ::core::option::Option::Some(
-                                        ::std::borrow::ToOwned::to_owned("int256"),
-                                    ),
-                                },
-                            ],
-                        },
-                    ],
-                ),
-            ]),
+            errors: ::std::collections::BTreeMap::new(),
             receive: false,
             fallback: false,
         }
     }
     ///The parsed JSON ABI of the contract.
-    pub static LIQUIDATORFORKSHAREDSETUP_ABI: ::ethers::contract::Lazy<
+    pub static WEETHIONPOOLSHAREDSETUP_ABI: ::ethers::contract::Lazy<
         ::ethers::core::abi::Abi,
     > = ::ethers::contract::Lazy::new(__abi);
-    pub struct LiquidatorForkSharedSetup<M>(::ethers::contract::Contract<M>);
-    impl<M> ::core::clone::Clone for LiquidatorForkSharedSetup<M> {
+    pub struct WeEthIonPoolSharedSetup<M>(::ethers::contract::Contract<M>);
+    impl<M> ::core::clone::Clone for WeEthIonPoolSharedSetup<M> {
         fn clone(&self) -> Self {
             Self(::core::clone::Clone::clone(&self.0))
         }
     }
-    impl<M> ::core::ops::Deref for LiquidatorForkSharedSetup<M> {
+    impl<M> ::core::ops::Deref for WeEthIonPoolSharedSetup<M> {
         type Target = ::ethers::contract::Contract<M>;
         fn deref(&self) -> &Self::Target {
             &self.0
         }
     }
-    impl<M> ::core::ops::DerefMut for LiquidatorForkSharedSetup<M> {
+    impl<M> ::core::ops::DerefMut for WeEthIonPoolSharedSetup<M> {
         fn deref_mut(&mut self) -> &mut Self::Target {
             &mut self.0
         }
     }
-    impl<M> ::core::fmt::Debug for LiquidatorForkSharedSetup<M> {
+    impl<M> ::core::fmt::Debug for WeEthIonPoolSharedSetup<M> {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-            f.debug_tuple(::core::stringify!(LiquidatorForkSharedSetup))
+            f.debug_tuple(::core::stringify!(WeEthIonPoolSharedSetup))
                 .field(&self.address())
                 .finish()
         }
     }
-    impl<M: ::ethers::providers::Middleware> LiquidatorForkSharedSetup<M> {
+    impl<M: ::ethers::providers::Middleware> WeEthIonPoolSharedSetup<M> {
         /// Creates a new contract instance with the specified `ethers` client at
         /// `address`. The contract derefs to a `ethers::Contract` object.
         pub fn new<T: Into<::ethers::core::types::Address>>(
@@ -961,7 +902,7 @@ pub mod liquidator_fork_shared_setup {
             Self(
                 ::ethers::contract::Contract::new(
                     address.into(),
-                    LIQUIDATORFORKSHAREDSETUP_ABI.clone(),
+                    WEETHIONPOOLSHAREDSETUP_ABI.clone(),
                     client,
                 ),
             )
@@ -1328,186 +1269,15 @@ pub mod liquidator_fork_shared_setup {
         ) -> ::ethers::contract::builders::Event<
             ::std::sync::Arc<M>,
             M,
-            LiquidatorForkSharedSetupEvents,
+            WeEthIonPoolSharedSetupEvents,
         > {
             self.0.event_with_filter(::core::default::Default::default())
         }
     }
     impl<M: ::ethers::providers::Middleware> From<::ethers::contract::Contract<M>>
-    for LiquidatorForkSharedSetup<M> {
+    for WeEthIonPoolSharedSetup<M> {
         fn from(contract: ::ethers::contract::Contract<M>) -> Self {
             Self::new(contract.address(), contract.client())
-        }
-    }
-    ///Custom Error type `MathOverflowedMulDiv` with signature `MathOverflowedMulDiv()` and selector `0x227bc153`
-    #[derive(
-        Clone,
-        ::ethers::contract::EthError,
-        ::ethers::contract::EthDisplay,
-        serde::Serialize,
-        serde::Deserialize,
-        Default,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash
-    )]
-    #[etherror(name = "MathOverflowedMulDiv", abi = "MathOverflowedMulDiv()")]
-    pub struct MathOverflowedMulDiv;
-    ///Custom Error type `NotScalingUp` with signature `NotScalingUp(uint256,uint256)` and selector `0x1a065cf1`
-    #[derive(
-        Clone,
-        ::ethers::contract::EthError,
-        ::ethers::contract::EthDisplay,
-        serde::Serialize,
-        serde::Deserialize,
-        Default,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash
-    )]
-    #[etherror(name = "NotScalingUp", abi = "NotScalingUp(uint256,uint256)")]
-    pub struct NotScalingUp {
-        pub from: ::ethers::core::types::U256,
-        pub to: ::ethers::core::types::U256,
-    }
-    ///Custom Error type `SafeCastOverflowedIntToUint` with signature `SafeCastOverflowedIntToUint(int256)` and selector `0xa8ce4432`
-    #[derive(
-        Clone,
-        ::ethers::contract::EthError,
-        ::ethers::contract::EthDisplay,
-        serde::Serialize,
-        serde::Deserialize,
-        Default,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash
-    )]
-    #[etherror(
-        name = "SafeCastOverflowedIntToUint",
-        abi = "SafeCastOverflowedIntToUint(int256)"
-    )]
-    pub struct SafeCastOverflowedIntToUint {
-        pub value: ::ethers::core::types::I256,
-    }
-    ///Container type for all of the contract's custom errors
-    #[derive(
-        Clone,
-        ::ethers::contract::EthAbiType,
-        serde::Serialize,
-        serde::Deserialize,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash
-    )]
-    pub enum LiquidatorForkSharedSetupErrors {
-        MathOverflowedMulDiv(MathOverflowedMulDiv),
-        NotScalingUp(NotScalingUp),
-        SafeCastOverflowedIntToUint(SafeCastOverflowedIntToUint),
-        /// The standard solidity revert string, with selector
-        /// Error(string) -- 0x08c379a0
-        RevertString(::std::string::String),
-    }
-    impl ::ethers::core::abi::AbiDecode for LiquidatorForkSharedSetupErrors {
-        fn decode(
-            data: impl AsRef<[u8]>,
-        ) -> ::core::result::Result<Self, ::ethers::core::abi::AbiError> {
-            let data = data.as_ref();
-            if let Ok(decoded) = <::std::string::String as ::ethers::core::abi::AbiDecode>::decode(
-                data,
-            ) {
-                return Ok(Self::RevertString(decoded));
-            }
-            if let Ok(decoded) = <MathOverflowedMulDiv as ::ethers::core::abi::AbiDecode>::decode(
-                data,
-            ) {
-                return Ok(Self::MathOverflowedMulDiv(decoded));
-            }
-            if let Ok(decoded) = <NotScalingUp as ::ethers::core::abi::AbiDecode>::decode(
-                data,
-            ) {
-                return Ok(Self::NotScalingUp(decoded));
-            }
-            if let Ok(decoded) = <SafeCastOverflowedIntToUint as ::ethers::core::abi::AbiDecode>::decode(
-                data,
-            ) {
-                return Ok(Self::SafeCastOverflowedIntToUint(decoded));
-            }
-            Err(::ethers::core::abi::Error::InvalidData.into())
-        }
-    }
-    impl ::ethers::core::abi::AbiEncode for LiquidatorForkSharedSetupErrors {
-        fn encode(self) -> ::std::vec::Vec<u8> {
-            match self {
-                Self::MathOverflowedMulDiv(element) => {
-                    ::ethers::core::abi::AbiEncode::encode(element)
-                }
-                Self::NotScalingUp(element) => {
-                    ::ethers::core::abi::AbiEncode::encode(element)
-                }
-                Self::SafeCastOverflowedIntToUint(element) => {
-                    ::ethers::core::abi::AbiEncode::encode(element)
-                }
-                Self::RevertString(s) => ::ethers::core::abi::AbiEncode::encode(s),
-            }
-        }
-    }
-    impl ::ethers::contract::ContractRevert for LiquidatorForkSharedSetupErrors {
-        fn valid_selector(selector: [u8; 4]) -> bool {
-            match selector {
-                [0x08, 0xc3, 0x79, 0xa0] => true,
-                _ if selector
-                    == <MathOverflowedMulDiv as ::ethers::contract::EthError>::selector() => {
-                    true
-                }
-                _ if selector
-                    == <NotScalingUp as ::ethers::contract::EthError>::selector() => true,
-                _ if selector
-                    == <SafeCastOverflowedIntToUint as ::ethers::contract::EthError>::selector() => {
-                    true
-                }
-                _ => false,
-            }
-        }
-    }
-    impl ::core::fmt::Display for LiquidatorForkSharedSetupErrors {
-        fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-            match self {
-                Self::MathOverflowedMulDiv(element) => {
-                    ::core::fmt::Display::fmt(element, f)
-                }
-                Self::NotScalingUp(element) => ::core::fmt::Display::fmt(element, f),
-                Self::SafeCastOverflowedIntToUint(element) => {
-                    ::core::fmt::Display::fmt(element, f)
-                }
-                Self::RevertString(s) => ::core::fmt::Display::fmt(s, f),
-            }
-        }
-    }
-    impl ::core::convert::From<::std::string::String>
-    for LiquidatorForkSharedSetupErrors {
-        fn from(value: String) -> Self {
-            Self::RevertString(value)
-        }
-    }
-    impl ::core::convert::From<MathOverflowedMulDiv>
-    for LiquidatorForkSharedSetupErrors {
-        fn from(value: MathOverflowedMulDiv) -> Self {
-            Self::MathOverflowedMulDiv(value)
-        }
-    }
-    impl ::core::convert::From<NotScalingUp> for LiquidatorForkSharedSetupErrors {
-        fn from(value: NotScalingUp) -> Self {
-            Self::NotScalingUp(value)
-        }
-    }
-    impl ::core::convert::From<SafeCastOverflowedIntToUint>
-    for LiquidatorForkSharedSetupErrors {
-        fn from(value: SafeCastOverflowedIntToUint) -> Self {
-            Self::SafeCastOverflowedIntToUint(value)
         }
     }
     #[derive(
@@ -1876,7 +1646,7 @@ pub mod liquidator_fork_shared_setup {
         Eq,
         Hash
     )]
-    pub enum LiquidatorForkSharedSetupEvents {
+    pub enum WeEthIonPoolSharedSetupEvents {
         LogFilter(LogFilter),
         LogAddressFilter(LogAddressFilter),
         LogArray1Filter(LogArray1Filter),
@@ -1900,96 +1670,84 @@ pub mod liquidator_fork_shared_setup {
         LogUintFilter(LogUintFilter),
         LogsFilter(LogsFilter),
     }
-    impl ::ethers::contract::EthLogDecode for LiquidatorForkSharedSetupEvents {
+    impl ::ethers::contract::EthLogDecode for WeEthIonPoolSharedSetupEvents {
         fn decode_log(
             log: &::ethers::core::abi::RawLog,
         ) -> ::core::result::Result<Self, ::ethers::core::abi::Error> {
             if let Ok(decoded) = LogFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogFilter(decoded));
             }
             if let Ok(decoded) = LogAddressFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogAddressFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogAddressFilter(decoded));
             }
             if let Ok(decoded) = LogArray1Filter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogArray1Filter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogArray1Filter(decoded));
             }
             if let Ok(decoded) = LogArray2Filter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogArray2Filter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogArray2Filter(decoded));
             }
             if let Ok(decoded) = LogArray3Filter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogArray3Filter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogArray3Filter(decoded));
             }
             if let Ok(decoded) = LogBytesFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogBytesFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogBytesFilter(decoded));
             }
             if let Ok(decoded) = LogBytes32Filter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogBytes32Filter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogBytes32Filter(decoded));
             }
             if let Ok(decoded) = LogIntFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogIntFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogIntFilter(decoded));
             }
             if let Ok(decoded) = LogNamedAddressFilter::decode_log(log) {
-                return Ok(
-                    LiquidatorForkSharedSetupEvents::LogNamedAddressFilter(decoded),
-                );
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedAddressFilter(decoded));
             }
             if let Ok(decoded) = LogNamedArray1Filter::decode_log(log) {
-                return Ok(
-                    LiquidatorForkSharedSetupEvents::LogNamedArray1Filter(decoded),
-                );
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedArray1Filter(decoded));
             }
             if let Ok(decoded) = LogNamedArray2Filter::decode_log(log) {
-                return Ok(
-                    LiquidatorForkSharedSetupEvents::LogNamedArray2Filter(decoded),
-                );
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedArray2Filter(decoded));
             }
             if let Ok(decoded) = LogNamedArray3Filter::decode_log(log) {
-                return Ok(
-                    LiquidatorForkSharedSetupEvents::LogNamedArray3Filter(decoded),
-                );
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedArray3Filter(decoded));
             }
             if let Ok(decoded) = LogNamedBytesFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogNamedBytesFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedBytesFilter(decoded));
             }
             if let Ok(decoded) = LogNamedBytes32Filter::decode_log(log) {
-                return Ok(
-                    LiquidatorForkSharedSetupEvents::LogNamedBytes32Filter(decoded),
-                );
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedBytes32Filter(decoded));
             }
             if let Ok(decoded) = LogNamedDecimalIntFilter::decode_log(log) {
                 return Ok(
-                    LiquidatorForkSharedSetupEvents::LogNamedDecimalIntFilter(decoded),
+                    WeEthIonPoolSharedSetupEvents::LogNamedDecimalIntFilter(decoded),
                 );
             }
             if let Ok(decoded) = LogNamedDecimalUintFilter::decode_log(log) {
                 return Ok(
-                    LiquidatorForkSharedSetupEvents::LogNamedDecimalUintFilter(decoded),
+                    WeEthIonPoolSharedSetupEvents::LogNamedDecimalUintFilter(decoded),
                 );
             }
             if let Ok(decoded) = LogNamedIntFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogNamedIntFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedIntFilter(decoded));
             }
             if let Ok(decoded) = LogNamedStringFilter::decode_log(log) {
-                return Ok(
-                    LiquidatorForkSharedSetupEvents::LogNamedStringFilter(decoded),
-                );
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedStringFilter(decoded));
             }
             if let Ok(decoded) = LogNamedUintFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogNamedUintFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogNamedUintFilter(decoded));
             }
             if let Ok(decoded) = LogStringFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogStringFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogStringFilter(decoded));
             }
             if let Ok(decoded) = LogUintFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogUintFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogUintFilter(decoded));
             }
             if let Ok(decoded) = LogsFilter::decode_log(log) {
-                return Ok(LiquidatorForkSharedSetupEvents::LogsFilter(decoded));
+                return Ok(WeEthIonPoolSharedSetupEvents::LogsFilter(decoded));
             }
             Err(::ethers::core::abi::Error::InvalidData)
         }
     }
-    impl ::core::fmt::Display for LiquidatorForkSharedSetupEvents {
+    impl ::core::fmt::Display for WeEthIonPoolSharedSetupEvents {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
             match self {
                 Self::LogFilter(element) => ::core::fmt::Display::fmt(element, f),
@@ -2037,120 +1795,114 @@ pub mod liquidator_fork_shared_setup {
             }
         }
     }
-    impl ::core::convert::From<LogFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogFilter) -> Self {
             Self::LogFilter(value)
         }
     }
-    impl ::core::convert::From<LogAddressFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogAddressFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogAddressFilter) -> Self {
             Self::LogAddressFilter(value)
         }
     }
-    impl ::core::convert::From<LogArray1Filter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogArray1Filter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogArray1Filter) -> Self {
             Self::LogArray1Filter(value)
         }
     }
-    impl ::core::convert::From<LogArray2Filter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogArray2Filter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogArray2Filter) -> Self {
             Self::LogArray2Filter(value)
         }
     }
-    impl ::core::convert::From<LogArray3Filter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogArray3Filter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogArray3Filter) -> Self {
             Self::LogArray3Filter(value)
         }
     }
-    impl ::core::convert::From<LogBytesFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogBytesFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogBytesFilter) -> Self {
             Self::LogBytesFilter(value)
         }
     }
-    impl ::core::convert::From<LogBytes32Filter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogBytes32Filter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogBytes32Filter) -> Self {
             Self::LogBytes32Filter(value)
         }
     }
-    impl ::core::convert::From<LogIntFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogIntFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogIntFilter) -> Self {
             Self::LogIntFilter(value)
         }
     }
-    impl ::core::convert::From<LogNamedAddressFilter>
-    for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedAddressFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedAddressFilter) -> Self {
             Self::LogNamedAddressFilter(value)
         }
     }
-    impl ::core::convert::From<LogNamedArray1Filter>
-    for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedArray1Filter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedArray1Filter) -> Self {
             Self::LogNamedArray1Filter(value)
         }
     }
-    impl ::core::convert::From<LogNamedArray2Filter>
-    for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedArray2Filter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedArray2Filter) -> Self {
             Self::LogNamedArray2Filter(value)
         }
     }
-    impl ::core::convert::From<LogNamedArray3Filter>
-    for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedArray3Filter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedArray3Filter) -> Self {
             Self::LogNamedArray3Filter(value)
         }
     }
-    impl ::core::convert::From<LogNamedBytesFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedBytesFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedBytesFilter) -> Self {
             Self::LogNamedBytesFilter(value)
         }
     }
-    impl ::core::convert::From<LogNamedBytes32Filter>
-    for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedBytes32Filter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedBytes32Filter) -> Self {
             Self::LogNamedBytes32Filter(value)
         }
     }
     impl ::core::convert::From<LogNamedDecimalIntFilter>
-    for LiquidatorForkSharedSetupEvents {
+    for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedDecimalIntFilter) -> Self {
             Self::LogNamedDecimalIntFilter(value)
         }
     }
     impl ::core::convert::From<LogNamedDecimalUintFilter>
-    for LiquidatorForkSharedSetupEvents {
+    for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedDecimalUintFilter) -> Self {
             Self::LogNamedDecimalUintFilter(value)
         }
     }
-    impl ::core::convert::From<LogNamedIntFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedIntFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedIntFilter) -> Self {
             Self::LogNamedIntFilter(value)
         }
     }
-    impl ::core::convert::From<LogNamedStringFilter>
-    for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedStringFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedStringFilter) -> Self {
             Self::LogNamedStringFilter(value)
         }
     }
-    impl ::core::convert::From<LogNamedUintFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogNamedUintFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogNamedUintFilter) -> Self {
             Self::LogNamedUintFilter(value)
         }
     }
-    impl ::core::convert::From<LogStringFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogStringFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogStringFilter) -> Self {
             Self::LogStringFilter(value)
         }
     }
-    impl ::core::convert::From<LogUintFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogUintFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogUintFilter) -> Self {
             Self::LogUintFilter(value)
         }
     }
-    impl ::core::convert::From<LogsFilter> for LiquidatorForkSharedSetupEvents {
+    impl ::core::convert::From<LogsFilter> for WeEthIonPoolSharedSetupEvents {
         fn from(value: LogsFilter) -> Self {
             Self::LogsFilter(value)
         }
@@ -2410,7 +2162,7 @@ pub mod liquidator_fork_shared_setup {
         Eq,
         Hash
     )]
-    pub enum LiquidatorForkSharedSetupCalls {
+    pub enum WeEthIonPoolSharedSetupCalls {
         IsTest(IsTestCall),
         DepositInterestGains(DepositInterestGainsCall),
         ExcludeArtifacts(ExcludeArtifactsCall),
@@ -2428,7 +2180,7 @@ pub mod liquidator_fork_shared_setup {
         TargetSenders(TargetSendersCall),
         TestSetUp(TestSetUpCall),
     }
-    impl ::ethers::core::abi::AbiDecode for LiquidatorForkSharedSetupCalls {
+    impl ::ethers::core::abi::AbiDecode for WeEthIonPoolSharedSetupCalls {
         fn decode(
             data: impl AsRef<[u8]>,
         ) -> ::core::result::Result<Self, ::ethers::core::abi::AbiError> {
@@ -2516,7 +2268,7 @@ pub mod liquidator_fork_shared_setup {
             Err(::ethers::core::abi::Error::InvalidData.into())
         }
     }
-    impl ::ethers::core::abi::AbiEncode for LiquidatorForkSharedSetupCalls {
+    impl ::ethers::core::abi::AbiEncode for WeEthIonPoolSharedSetupCalls {
         fn encode(self) -> Vec<u8> {
             match self {
                 Self::IsTest(element) => ::ethers::core::abi::AbiEncode::encode(element),
@@ -2562,7 +2314,7 @@ pub mod liquidator_fork_shared_setup {
             }
         }
     }
-    impl ::core::fmt::Display for LiquidatorForkSharedSetupCalls {
+    impl ::core::fmt::Display for WeEthIonPoolSharedSetupCalls {
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
             match self {
                 Self::IsTest(element) => ::core::fmt::Display::fmt(element, f),
@@ -2588,84 +2340,84 @@ pub mod liquidator_fork_shared_setup {
             }
         }
     }
-    impl ::core::convert::From<IsTestCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<IsTestCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: IsTestCall) -> Self {
             Self::IsTest(value)
         }
     }
     impl ::core::convert::From<DepositInterestGainsCall>
-    for LiquidatorForkSharedSetupCalls {
+    for WeEthIonPoolSharedSetupCalls {
         fn from(value: DepositInterestGainsCall) -> Self {
             Self::DepositInterestGains(value)
         }
     }
-    impl ::core::convert::From<ExcludeArtifactsCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<ExcludeArtifactsCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: ExcludeArtifactsCall) -> Self {
             Self::ExcludeArtifacts(value)
         }
     }
-    impl ::core::convert::From<ExcludeContractsCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<ExcludeContractsCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: ExcludeContractsCall) -> Self {
             Self::ExcludeContracts(value)
         }
     }
-    impl ::core::convert::From<ExcludeSendersCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<ExcludeSendersCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: ExcludeSendersCall) -> Self {
             Self::ExcludeSenders(value)
         }
     }
-    impl ::core::convert::From<FailedCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<FailedCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: FailedCall) -> Self {
             Self::Failed(value)
         }
     }
-    impl ::core::convert::From<IlkIndexesCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<IlkIndexesCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: IlkIndexesCall) -> Self {
             Self::IlkIndexes(value)
         }
     }
-    impl ::core::convert::From<OracleCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<OracleCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: OracleCall) -> Self {
             Self::Oracle(value)
         }
     }
-    impl ::core::convert::From<SetUpCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<SetUpCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: SetUpCall) -> Self {
             Self::SetUp(value)
         }
     }
     impl ::core::convert::From<TargetArtifactSelectorsCall>
-    for LiquidatorForkSharedSetupCalls {
+    for WeEthIonPoolSharedSetupCalls {
         fn from(value: TargetArtifactSelectorsCall) -> Self {
             Self::TargetArtifactSelectors(value)
         }
     }
-    impl ::core::convert::From<TargetArtifactsCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<TargetArtifactsCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: TargetArtifactsCall) -> Self {
             Self::TargetArtifacts(value)
         }
     }
-    impl ::core::convert::From<TargetContractsCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<TargetContractsCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: TargetContractsCall) -> Self {
             Self::TargetContracts(value)
         }
     }
-    impl ::core::convert::From<TargetInterfacesCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<TargetInterfacesCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: TargetInterfacesCall) -> Self {
             Self::TargetInterfaces(value)
         }
     }
-    impl ::core::convert::From<TargetSelectorsCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<TargetSelectorsCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: TargetSelectorsCall) -> Self {
             Self::TargetSelectors(value)
         }
     }
-    impl ::core::convert::From<TargetSendersCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<TargetSendersCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: TargetSendersCall) -> Self {
             Self::TargetSenders(value)
         }
     }
-    impl ::core::convert::From<TestSetUpCall> for LiquidatorForkSharedSetupCalls {
+    impl ::core::convert::From<TestSetUpCall> for WeEthIonPoolSharedSetupCalls {
         fn from(value: TestSetUpCall) -> Self {
             Self::TestSetUp(value)
         }
