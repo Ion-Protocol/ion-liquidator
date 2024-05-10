@@ -1,0 +1,7 @@
+service: ion-liquidator
+
+provider:
+  name: aws
+
+resources:
+  - ${file(./liquidators.cjs)}

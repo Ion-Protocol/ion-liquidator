@@ -1,5 +1,5 @@
 [package]
-name = "ion_liquidator"
+name = "ion-liquidator"
 version = "0.1.0"
 edition = "2021"
 
@@ -25,6 +25,7 @@ chrono = "0.4.23"
 revm = { version = "3.5.0", features = ["optional_block_gas_limit", "optional_no_base_fee", "ethersdb", "std"] }
 alloy-primitives = { version = "0.5.2" }
 async-trait = "0.1.74"
+clap = { version = "4", features = ["derive", "env", "unicode", "wrap_help"] }
 
 [patch.crates-io]
 ethers = { git = "https://github.com/gakonst/ethers-rs", rev = "f0e5b194f09c533feb10d1a686ddb9e5946ec107" }

@@ -3174,7 +3174,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "ion_liquidator"
+name = "ion-liquidator"
 version = "0.1.0"
 dependencies = [
  "alloy-primitives",
@@ -3184,6 +3184,7 @@ dependencies = [
  "async-trait",
  "bindings",
  "chrono",
+ "clap",
  "colored 2.0.4",
  "dotenv",
  "eth-encode-packed",

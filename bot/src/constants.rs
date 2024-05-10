@@ -3,7 +3,7 @@ use ethers_core::{types::H256, utils::keccak256};
 use std::str::FromStr;
 
 pub fn get_env(key: &str) -> String {
-    std::env::var(key).unwrap()
+    std::env::var(key).unwrap_or_else(|_| panic!("{} not found", key))
 }
 
 #[derive(Debug, Clone, Default)]
@@ -17,10 +17,12 @@ pub struct Env {
 impl Env {
     pub fn new() -> Self {
         Env {
-            https_url: get_env("HTTPS_URL"),
-            wss_url: get_env("WSS_URL"),
+            https_url: get_env("HTTP_RPC_URL"),
+            wss_url: get_env("WS_RPC_URL"),
             private_key: get_env("PRIVATE_KEY"),
-            chain_id: get_env("CHAIN_ID").parse().unwrap(),
+            chain_id: get_env("CHAIN_ID")
+                .parse()
+                .expect("CHAIN_ID is not a number"),
         }
     }
 }
@@ -29,14 +31,6 @@ pub static ZERO_ADDRESS: Lazy<Address> =
     Lazy::new(|| Address::from_str("0x0000000000000000000000000000000000000000").unwrap());
 pub static WETH9: Lazy<Address> =
     Lazy::new(|| Address::from_str("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2").unwrap());
-
-// TODO:
-pub static ION_POOL_ADDRESS: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x00000000005a1De4c0eb34609e211AD8831707E0").unwrap());
-pub static LIQUIDATION_ADDRESS: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x00000000002Ddfa58A917ee47c5BbB909A2227C4").unwrap());
-pub static ION_TREASURY: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x0000000000000000000000000000000000000001").unwrap());
 
 // IonPool Events
 pub static BORROW_EVENT_SIGNATURE: &str = "Borrow(uint8,address,address,uint256,uint256,uint256)";
@@ -72,22 +66,3 @@ pub static EVENTS: &[&str] = &[
     WITHDRAW_COLLATERAL_EVENT_SIGNATURE,
     CONFISCATE_VAULT_EVENT_SIGNATURE,
 ];
-
-// Collateral addresses
-pub static WEETH_ADDRESS: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee").unwrap());
-
-pub static WEETH_GEM_JOIN: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x1f0CEf277C05CBd9f96dd91e6a9D9C2422b00E55").unwrap());
-
-// Liquidator addresses
-pub static WEETH_CURVE_LIQUIDATOR: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x14AB8eC88894568fad716D9cd81bb4BdAF343fE0").unwrap());
-pub static WEETH_UNISWAP_LIQUIDATOR: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x58FE37a48c2EFc2e66e7C8AaC8e91789835F8282").unwrap());
-
-// DEX pools
-pub static WEETH_WETH_UNISWAP_POOL: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x7A415B19932c0105c82FDB6b720bb01B0CC2CAe3").unwrap());
-pub static WEETH_WETH_CURVE_POOL: Lazy<Address> =
-    Lazy::new(|| Address::from_str("0x13947303F63b363876868D070F14dc865C36463b").unwrap());

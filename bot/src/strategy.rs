@@ -1,14 +1,21 @@
-use crate::constants::{
-    ION_TREASURY, TRANSFER_EVENT_HASH, WEETH_ADDRESS, WEETH_CURVE_LIQUIDATOR, WEETH_GEM_JOIN,
-    WEETH_UNISWAP_LIQUIDATOR, WEETH_WETH_CURVE_POOL, WEETH_WETH_UNISWAP_POOL,
+use crate::{
+    constants::{
+        Env, BORROW_EVENT_HASH, CONFISCATE_VAULT_EVENT_HASH, DEPOSIT_COLLATERAL_EVENT_HASH, EVENTS,
+        REPAY_EVENT_HASH, TRANSFER_EVENT_HASH, WITHDRAW_COLLATERAL_EVENT_HASH,
+    },
+    executors::mempool_executor::SubmitTxToMempool,
+    helpers::{
+        foundry_evm_helpers::setup_foundry_evm,
+        revm_helpers::{create_evm_instance, deploy_contract, evm_env_setup},
+    },
+    types::{Action, Event, IlkRateData, PoolInfo, VaultInfo, VaultKey},
 };
-use crate::executors::mempool_executor::SubmitTxToMempool;
 use alloy_primitives::{Address, Bytes as aBytes, B256};
-use anvil::eth::backend::info;
 #[allow(unused_imports)]
 use anvil::eth::backend::mem::inspector::Inspector;
 use anyhow::Result;
 use artemis_core::types::Strategy;
+use async_trait::async_trait;
 use bindings::{
     fetch_parameters::FETCHPARAMETERS_BYTECODE,
     fetch_rates_and_exchange_rates::FETCHRATESANDEXCHANGERATES_BYTECODE,
@@ -25,7 +32,8 @@ use ethers_core::{
         Token::{Address as TAddress, Bool as TBool, Tuple as TTuple, Uint as TUint},
     },
     types::{
-        Eip1559TransactionRequest, Filter, Log, NameOrAddress, Sign, TransactionRequest, H160, U256,
+        Address as EAddress, Eip1559TransactionRequest, Filter, Log, NameOrAddress, Sign,
+        TransactionRequest, H160, U256,
     },
 };
 use ethers_providers::Middleware;
@@ -39,31 +47,22 @@ use revm::{
     },
     InMemoryDB, EVM,
 };
-use std::{collections::HashMap, str::FromStr, sync::Arc};
-
-use async_trait::async_trait;
-
-use crate::{
-    constants::{
-        BORROW_EVENT_HASH, CONFISCATE_VAULT_EVENT_HASH, DEPOSIT_COLLATERAL_EVENT_HASH, EVENTS,
-        ION_POOL_ADDRESS, LIQUIDATION_ADDRESS, REPAY_EVENT_HASH, WITHDRAW_COLLATERAL_EVENT_HASH,
-    },
-    helpers::{
-        foundry_evm_helpers::setup_foundry_evm,
-        revm_helpers::{create_evm_instance, deploy_contract, evm_env_setup},
-    },
-    types::{Action, Event, IlkRateData, PoolInfo, VaultInfo, VaultKey},
-};
-
-#[derive(Debug, Clone)]
+use std::{collections::HashMap, str::FromStr, sync::Arc, sync::Mutex};
+#[derive(Debug)]
 pub struct IonLiquidatorStrategy<M> {
     provider: Arc<M>,
+    env: Env,
     ion_pool: Arc<IonPool<M>>,
     vaults: HashMap<VaultKey, VaultInfo>,
-    revm: EVM<InMemoryDB>,
+    revm: Mutex<EVM<InMemoryDB>>,
 
+    liquidation: H160,
+    treasury: H160,
     collateral: H160,
     gem_join: H160,
+
+    curve_liquidator: H160,
+    uniswap_liquidator: H160,
 
     dex_pools: Vec<PoolInfo>,
 
@@ -78,8 +77,21 @@ pub struct IonLiquidatorStrategy<M> {
 }
 
 impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
-    pub fn new(provider: Arc<M>) -> Self {
-        let ion_pool = Arc::new(IonPool::new(*ION_POOL_ADDRESS, provider.clone()));
+    #[allow(clippy::too_many_arguments)]
+    pub fn new(
+        provider: Arc<M>,
+        env: Env,
+        ion_pool_addr: EAddress,
+        liquidation: EAddress,
+        treasury: EAddress,
+        collateral_erc20: EAddress,
+        gem_join: EAddress,
+        curve_liquidator: EAddress,
+        uniswap_liquidator: EAddress,
+        curve_pool: EAddress,
+        uniswap_pool: EAddress,
+    ) -> Self {
+        let ion_pool = Arc::new(IonPool::new(ion_pool_addr, provider.clone()));
 
         let mut revm = create_evm_instance();
         evm_env_setup(&mut revm);
@@ -87,23 +99,29 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
             deploy_contract(&mut revm, LIQUIDATIONHELPERS_BYTECODE.clone(), &[])
                 .expect("Failed to deploy LiquidationHelpers contract on REVM");
 
-        let collateral = *WEETH_ADDRESS;
+        let revm = Mutex::new(revm);
 
-        let gem_join = *WEETH_GEM_JOIN;
+        let collateral = collateral_erc20;
 
         let dex_pools = vec![
-            PoolInfo::Curve(*WEETH_WETH_CURVE_POOL, false),
-            PoolInfo::Uniswap(*WEETH_WETH_UNISWAP_POOL, true),
+            PoolInfo::Curve(curve_pool, false),
+            PoolInfo::Uniswap(uniswap_pool, true),
         ];
 
         Self {
             provider,
+            env,
             ion_pool,
             vaults: HashMap::new(),
             revm,
 
+            liquidation,
+            treasury,
             collateral,
             gem_join,
+
+            curve_liquidator,
+            uniswap_liquidator,
 
             dex_pools,
 
@@ -170,7 +188,12 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
 
                 let mut actions = vec![];
 
-                let _ = self.vaults
+                let mut revm = self.revm.lock().expect("Failed to lock REVM");
+
+                revm.env.tx.transact_to =
+                    TransactTo::Call(self.liquidation_helper_addr.as_fixed_bytes().into());
+
+                let liquidatable_vaults = self.vaults
                     .iter()
                     .filter_map(|(key, info)| {
                         let sig: Vec<u8> = [252, 139, 29, 222].to_vec();
@@ -189,11 +212,9 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
 
                         let tx_payload = [sig, args].concat();
 
-                        self.revm.env.tx.transact_to =
-                            TransactTo::Call(self.liquidation_helper_addr.as_fixed_bytes().into());
-                        self.revm.env.tx.data = tx_payload.into();
+                        revm.env.tx.data = tx_payload.into();
 
-                        let ResultAndState { result, .. } = match self.revm.transact_ref() {
+                        let ResultAndState { result, .. } = match revm.transact_ref() {
                             Ok(result) => result,
                             Err(e) => {
                                 error!("EVM call failed: {e:?}");
@@ -228,11 +249,15 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
                         } else {
                             None
                         }
-                    })
-                    .collect::<Vec<_>>()
-                    .iter()
-                    // Check liquidatable vaults for profitability
-                    .for_each(|liquidatable_vault: &(&VaultKey, &VaultInfo, U256, U256)| {
+                    });
+
+                let mut liquidatable_count = 0;
+
+                // Check liquidatable vaults for profitability
+                liquidatable_vaults.for_each(
+                    |liquidatable_vault: (&VaultKey, &VaultInfo, U256, U256)| {
+                        liquidatable_count += 1;
+
                         let (key, _, _, _) = liquidatable_vault;
 
                         // Random address
@@ -251,38 +276,46 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
                             AccountInfo::new(ten_ether, 0, B256::default(), Bytecode::default());
                         fork_db.insert_account_info(tx_sender, tx_sender_acc_info);
 
-                        let simulations = self.simulate_liquidation(
-                            &mut foundry_evm,
-                            &tx_sender,
-                            &key.user,
-                        );
-                        let optimal_simulation = simulations.iter().filter_map(|simulation| {
-                            let (treasury_reward, gas_used, gas_refunded, calldata, liquidator_addr) = simulation;
+                        let simulations =
+                            self.simulate_liquidation(&mut foundry_evm, &tx_sender, &key.user);
 
-                            let gas_limit = gas_used + gas_refunded;
-                            let cost_of_tx = current_gas_price * gas_limit * 104 / 100; // Add a 4% buffer to the cost
-                            let profit = treasury_reward - cost_of_tx;
+                        let optimal_simulation = simulations
+                            .iter()
+                            .filter_map(|simulation| {
+                                let (
+                                    treasury_reward,
+                                    gas_used,
+                                    gas_refunded,
+                                    calldata,
+                                    liquidator_addr,
+                                ) = simulation;
 
-                            if profit > 0.into() {
-                                Some((profit, calldata, liquidator_addr))
-                            } else {
-                                None
-                            }
-                        }).max_by_key(|(profit, _, _)| *profit);
+                                let gas_limit = gas_used + gas_refunded;
+                                let cost_of_tx =
+                                    current_gas_price * gas_limit * U256::from(102) / 100; // Add a 2% buffer to the cost
+
+                                if *treasury_reward > cost_of_tx {
+                                    let profit = treasury_reward - cost_of_tx;
+                                    Some((profit, calldata, liquidator_addr))
+                                } else {
+                                    None
+                                }
+                            })
+                            .max_by_key(|(profit, _, _)| *profit);
 
                         if let Some((_, calldata, liquidator_addr)) = optimal_simulation {
-                             {
+                            {
                                 let tx = Eip1559TransactionRequest {
-                                    from: Some(H160::from(TryInto::<[u8; 20]>::try_into(tx_sender.0).unwrap())),
+                                    from: Some(H160::from(Into::<[u8; 20]>::into(tx_sender.0))),
                                     to: Some(NameOrAddress::Address(*liquidator_addr)),
                                     data: Some(calldata.clone().0.into()),
                                     gas: None,
-                                    chain_id: Some(31337u64.into()),
+                                    chain_id: Some(self.env.chain_id.into()),
                                     value: None,
                                     nonce: None,
                                     access_list: Default::default(),
                                     max_fee_per_gas: None,
-                                    max_priority_fee_per_gas: None
+                                    max_priority_fee_per_gas: None,
                                 };
 
                                 let action = Action::Liquidate(SubmitTxToMempool {
@@ -293,8 +326,10 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
                                 actions.push(action);
                             }
                         }
+                    },
+                );
 
-                    });
+                info!("Found {} liquidatable vaults", liquidatable_count);
 
                 return actions;
             }
@@ -338,7 +373,7 @@ impl<M: Middleware + 'static> Strategy<Event, Action> for IonLiquidatorStrategy<
 impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
     async fn sync_vaults(&mut self, from_block: u64, to_block: u64) -> Result<()> {
         let filter = Filter::new()
-            .address(*ION_POOL_ADDRESS)
+            .address(self.ion_pool.address())
             .from_block(from_block)
             .to_block(to_block)
             .events(EVENTS);
@@ -364,7 +399,7 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
     }
 
     async fn sync_parameters(&mut self) -> Result<()> {
-        let liquidation = TAddress(*LIQUIDATION_ADDRESS);
+        let liquidation = TAddress(self.liquidation);
         let ion_pool = TAddress(self.ion_pool.address());
 
         let constructor_args: Bytes = encode(&[ion_pool, liquidation]);
@@ -420,8 +455,8 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
     }
 
     async fn fetch_rates_and_exchange_rates(&mut self) -> Result<Vec<IlkRateData>> {
-        let liquidation = TAddress(*LIQUIDATION_ADDRESS);
-        let ion_pool = TAddress(*ION_POOL_ADDRESS);
+        let liquidation = TAddress(self.liquidation);
+        let ion_pool = TAddress(self.ion_pool.address());
 
         let constructor_args: Bytes = encode(&[liquidation, ion_pool]);
         let payload = [
@@ -690,7 +725,7 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
 
                     let calldata = [sig.clone(), common_args.clone(), args].concat();
 
-                    let liquidator_addr = *WEETH_CURVE_LIQUIDATOR;
+                    let liquidator_addr = self.curve_liquidator;
 
                     tx.data = calldata.into();
                     tx.transact_to = TransactTo::Call(liquidator_addr.as_fixed_bytes().into());
@@ -704,7 +739,7 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
 
                     let calldata = [sig.clone(), common_args.clone(), args].concat();
 
-                    let liquidator_addr = *WEETH_UNISWAP_LIQUIDATOR;
+                    let liquidator_addr = self.uniswap_liquidator;
 
                     tx.data = calldata.into();
                     tx.transact_to = TransactTo::Call((liquidator_addr).as_fixed_bytes().into());
@@ -734,7 +769,7 @@ impl<M: Middleware + 'static> IonLiquidatorStrategy<M> {
                         let treasury_reward = match logs.iter().find(|log| {
                             log.topics[0] == B256::from(*TRANSFER_EVENT_HASH.as_fixed_bytes())
                                 && log.topics[1] == address_to_bytes32(&liquidator_addr)
-                                && log.topics[2] == address_to_bytes32(&ION_TREASURY)
+                                && log.topics[2] == address_to_bytes32(&self.treasury)
                         }) {
                             Some(treasury_transfer_log) => {
                                 let decoded_data =

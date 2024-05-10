@@ -44,15 +44,15 @@ contract LiqudationHelpers_FuzzTest is LiquidationHelpersSharedSetup {
     }
 
     function test_GetLiquidationTypeBounds1() public {
-        $.liquidationThreshold = 920000000000000000000000000;
+        $.liquidationThreshold = 850000000000000000000000000;
         $.maxDiscount = 200000000000000000000000000;
-        $.dust = 1000000000000000000000000000000000000000000000;
-        $.baseDiscount = 0;
-        $.targetHealth = 1250000000000000000000000000;
+        $.dust = 4000000000000000000000000000000000000000000000;
+        $.baseDiscount = 10000000000000000000000000;
+        $.targetHealth = 1100000000000000000000000000;
 
-        $.normalizedDebt = 1783483136203109154;
-        $.collateralAmount = 3124009180067076394;
-        $.rate = 1000000014213077987990267835;
+        $.normalizedDebt = 4458228658429048458;
+        $.collateralAmount = 10000000000000000000;
+        $.rate = 1000006138682855781474162706;
 
         (uint256 partialLiquidationBound, uint256 fullLiquidationBound, uint256 protocolLiquidationBound) =
             liquidationHelpers.getLiquidationTypeBounds($);

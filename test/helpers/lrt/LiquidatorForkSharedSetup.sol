@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.21;
 
-import { UniswapV3Liquidator } from "../../../src/lrt/UniswapV3Liquidator.sol";
-import { CurveLiquidator } from "../../../src/lrt/CurveLiquidator.sol";
-import { WstEthCurveLiquidator } from "../../../src/lrt/WstEthCurveLiquidator.sol";
+import { UniswapV3Liquidator } from "../../../src/lst/UniswapV3Liquidator.sol";
+import { CurveLiquidator } from "../../../src/lst/CurveLiquidator.sol";
+import { WstEthCurveLiquidator } from "../../../src/lst/WstEthCurveLiquidator.sol";
 import { LiquidationHelpers } from "../../../src/helpers/LiquidationHelpers.sol";
 
 import { WAD, RAY, WadRayMath } from "@ionprotocol/src/libraries/math/WadRayMath.sol";

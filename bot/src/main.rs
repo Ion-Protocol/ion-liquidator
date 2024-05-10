@@ -1,9 +1,9 @@
 use anyhow::Result;
 use artemis_core::{
     collectors::log_collector::LogCollector,
-    engine::Engine,
     types::{CollectorMap, ExecutorMap},
 };
+use clap::Parser;
 use ethers::{
     middleware::MiddlewareBuilder,
     providers::{Provider, Ws},
@@ -12,27 +12,45 @@ use ethers::{
 };
 use ethers_core::types::Log;
 use ion_liquidator::{
+    cli::Cli,
     collectors::block_collector::{BlockCollector, NewBlock},
     constants::{
         Env, BORROW_EVENT_HASH, CONFISCATE_VAULT_EVENT_HASH, DEPOSIT_COLLATERAL_EVENT_HASH, EVENTS,
-        ION_POOL_ADDRESS, REPAY_EVENT_HASH, WITHDRAW_COLLATERAL_EVENT_HASH,
+        REPAY_EVENT_HASH, WITHDRAW_COLLATERAL_EVENT_HASH,
     },
     executors::mempool_executor::MempoolExecutor,
     strategy::IonLiquidatorStrategy,
     types::{Action, Event},
     utils::setup_logger,
+    engine::Engine
 };
 use log::info;
 use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let cli = Cli::parse();
+
+    let Cli {
+        ion_pool,
+        liquidation,
+        treasury,
+        collateral_erc20,
+        gem_join,
+        curve_liquidator,
+        uniswap_liquidator,
+        curve_pool,
+        uniswap_pool,
+    } = cli;
+
     dotenv::dotenv().ok();
     setup_logger()?;
 
     let env = Env::new();
-    let http = Provider::try_from(&env.https_url).unwrap();
-    let ws = Ws::connect(&env.wss_url).await.unwrap();
+    let http = Provider::try_from(&env.https_url).expect("Could not create HTTP provider");
+    let ws = Ws::connect(&env.wss_url)
+        .await
+        .expect("Could not connect to WebSocket");
     let wallet: LocalWallet = env
         .private_key
         .parse::<LocalWallet>()
@@ -45,7 +63,7 @@ async fn main() -> Result<()> {
 
     let mut engine: Engine<Event, Action> = Engine::new();
 
-    let log_filter = Filter::new().address(*ION_POOL_ADDRESS).events(EVENTS);
+    let log_filter = Filter::new().address(ion_pool).events(EVENTS);
 
     let log_collector = Box::new(LogCollector::new(provider.clone(), log_filter));
     let log_collector = CollectorMap::new(log_collector, |log: Log| match log.topics[0] {
@@ -62,7 +80,19 @@ async fn main() -> Result<()> {
         Event::NewBlock(block.number.as_u64(), block.timestamp.as_u64())
     });
 
-    let strategy = IonLiquidatorStrategy::new(provider.clone());
+    let strategy = IonLiquidatorStrategy::new(
+        provider.clone(),
+        env,
+        ion_pool,
+        liquidation,
+        treasury,
+        collateral_erc20,
+        gem_join,
+        curve_liquidator,
+        uniswap_liquidator,
+        curve_pool,
+        uniswap_pool,
+    );
 
     let mempool_executor = Box::new(MempoolExecutor::new(fb_provider.clone()));
     let mempool_executor = ExecutorMap::new(mempool_executor, |action: Action| match action {
